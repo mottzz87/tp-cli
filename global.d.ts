@@ -1,11 +1,13 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-17 06:02:04
- * @LastEditTime: 2021-08-19 19:26:53
+ * @LastEditTime: 2021-08-20 00:16:47
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\global.d.ts
  */
-
-declare module 'clear-console';
-declare module 'commander';
+declare module 'fs-extra';
+declare module 'download-git-repo';
+declare module 'shelljs';
+declare module 'ini';
+declare module 'bunyan';

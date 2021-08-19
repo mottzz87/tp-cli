@@ -1,6 +1,13 @@
+/*
+ * @Author: Vane
+ * @Date: 2021-08-17 05:31:20
+ * @LastEditTime: 2021-08-19 21:57:01
+ * @LastEditors: Vane
+ * @Description:
+ * @FilePath: \tp-cli\.prettierrc.js
+ */
 module.exports = {
-  // 一行最多 80 字符
-  printWidth: 80,
+  printWidth: 120,
   // 使用 2 个空格缩进
   tabWidth: 2,
   // 不使用 tab 缩进，而使用空格
@@ -33,5 +40,5 @@ module.exports = {
   // 根据显示样式决定 html 要不要折行
   htmlWhitespaceSensitivity: 'css',
   // 换行符使用 lf
-  endOfLine: 'lf'
-}
+  endOfLine: 'lf',
+};

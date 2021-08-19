@@ -1,0 +1,44 @@
+{
+  "supports": {
+    "type": ["H5", "PC", "MINIAPP"],
+    "frame": ["Vue", "Taro", "React", "uni-app"]
+  },
+  "gitlabGroups": [
+    {
+      "name": "公共项目",
+      "value": 1
+    },
+    {
+      "name": "技术中心",
+      "value": 2
+    },
+    {
+      "name": "互联网医院",
+      "value": 3
+    },
+    {
+      "name": "医护通",
+      "value": 4
+    }
+  ],
+  "templates": {
+    "H5_React": {
+      "url": "http://git.mobimedical.cn/chengyan/goldcard_oms.git",
+      "url_external": "http://git.mobimedical.cn/chengyan/goldcard_oms.git",
+      "tags": ["H5", "React", "Umi", "Typescript"],
+      "desc": "H5端项目模版"
+    },
+    "PC_React": {
+      "url": "http://git.mobimedical.cn/chengyan/pharmacist_system.git",
+      "url_external": "http://git.mobimedical.cn/chengyan/pharmacist_system.git",
+      "tags": ["PC", "React", "Umi", "Typescript"],
+      "desc": "PC端项目模版"
+    },
+    "PC_Vue": {
+      "url": "http://git.mobimedical.cn/chengyan/pharmacist_system.git",
+      "url_external": "http://git.mobimedical.cn/chengyan/pharmacist_system.git",
+      "tags": ["PC", "Vue", "Typescript"],
+      "desc": "PC端项目模版"
+    }
+  }
+}

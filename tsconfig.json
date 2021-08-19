@@ -13,6 +13,8 @@
     "pretty": true,
     "declaration": true,
     "outDir": "dist",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
       "*": ["src/*"]
