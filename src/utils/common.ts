@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-20 16:37:16
+ * @LastEditTime: 2021-08-20 17:52:59
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -10,6 +10,7 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import path from 'path';
 import ora from 'ora';
+import util from 'util';
 import fetch from 'node-fetch';
 import downloadGit from 'download-git-repo';
 import fs from 'fs-extra';
@@ -20,12 +21,18 @@ import { exit } from 'process';
 import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD } from './constants';
 import Rc from './rc';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const exec = util.promisify(require('child_process').exec);
+
 export interface IOptions {
   projectName: string;
   type?: string;
   frame?: string;
   author?: string;
-  force?: boolean
+  force?: boolean;
+  description?: string;
+  gitLocal?: boolean;  // git本地初始化
+  gitRemote?: boolean; // git是否增加远端分支
 }
 
 export interface IAuth {
@@ -79,19 +86,92 @@ export async function getGitlabAuth(): Promise<unknown> {
  * @param {string} api
  */
  export async function downloadTemplate (projectName: string, api: string): Promise<void> {
-  loading.start(chalk.yellow(`开始初始化项目...`));
-  const startTime = Date.now();
+  
+  loading.start(chalk.yellow(`开始拉取模板...`));
   return new Promise((resolve, reject) => {
     // 各代码仓库用法参考 https://www.npmjs.com/package/download-git-repo
     downloadGit(api, projectName, { clone: true }, (err: unknown) => {
       if (err) {
-        reject(`初始化项目失败\n${err}`);
+        reject(`模板拉取失败\n${err}`);
       } else {
-        loading.succeed(chalk.green(`恭喜你，模板拉取成功！ [耗时${Date.now() - startTime}ms]\n`));
+        loading.succeed(chalk.green(`模板拉取成功！ \n`));
         resolve();
       }
     });
   });
+}
+
+/**
+ * @description 写入信息
+ * @default 
+ * @param {string} fileName
+ * @param {any} obj
+ */
+export async function writePackage (fileName: string, obj: unknown): Promise<void> {
+  const startTime = Date.now();
+  loading.start(chalk.yellow(`开始初始化项目...`));
+  // 需要创建的目录地址
+  const targetAir = path.join(cwd, fileName);
+  return new Promise((resolve) => {
+    if (fs.existsSync(targetAir)) {
+      const data = fs.readFileSync(targetAir).toString();
+      const json = JSON.parse(data);
+      Object.keys(obj).forEach((key) => {
+        json[key] = obj[key];
+      });
+      fs.writeFileSync(targetAir, JSON.stringify(json, null, '\t'), 'utf-8');
+      loading.succeed(chalk.green(`恭喜你，项目初始化完成！ [耗时${Date.now() - startTime}ms]\n`));
+      resolve();
+    }
+  });
+}
+
+
+// 执行shell命令
+export async function loadCmd (cmd: string, text: string):Promise<void> {
+  const loading = ora();
+  const startTime = Date.now();
+  loading.start(chalk.yellow(`${chalk.whiteBright(text)}: 命令执行中...\n`));
+  try {
+    await exec(cmd);
+  } catch (err) {
+    console.log('');
+    console.log(symbol.error, chalk.red(`execute command failed: ${text}\n`));
+    console.log(symbol.info, chalk.redBright(`failed reason: ${err}`));
+    
+    exit();
+  }
+  loading.succeed(
+    chalk.green(
+      `${chalk.whiteBright(text)}: 命令执行完成 [耗时${
+        Date.now() - startTime
+      }ms]\n`
+    )
+  );
+}
+
+/**
+ * @description 初始化本地分支
+ * @default 
+ * @param {IOptions} answer
+ */
+export async function initGitLocal (answer: IOptions): Promise<void> {
+  const { projectName } = answer;
+  
+  await loadCmd(
+    `cd ${projectName} && git init && git add . && git commit -m "feat: ✨初始化项目"`,
+    '初始化本地git仓库'
+  );
+  await loadCmd(
+    `cd ${projectName} && git checkout -b develop`,
+    '创建develop分支'
+  );
+  await loadCmd(
+    `cd ${projectName} && git checkout -b feat/1.0.0`,
+    '创建并切换至feat/1.0.0分支'
+  );
+  
+  finishedTips(projectName);
 }
 
 /**
@@ -110,25 +190,6 @@ export async function handleNoAuth(): Promise<void> {
     console.log(chalk.yellow('$ tp-cli config set gitlab_password xxx'));
     exit();
   }
-}
-
-/**
- * @description 读取指定路径下 json 文件
- * @default
- * @param {string} filename 文件的路径
- */
-export function readJsonFile<T>(filename: string): T {
-  return JSON.parse(fs.readFileSync(filename, { encoding: 'utf-8', flag: 'r' }));
-}
-
-/**
- * @description 覆写指定路径下的 json 文件
- * @default
- * @param {string} filename json 文件的路径
- * @param {T} content json 内容
- */
-export function writeJsonFile<T>(filename: string, content: T): void {
-  fs.writeFileSync(filename, JSON.stringify(content, null, 2));
 }
 
 /**
@@ -155,6 +216,10 @@ export function getGitConfig<T>(url: string): T {
  */
 export async function handleDirExist(options: IOptions): Promise<void> {
   const { projectName } = options;
+  if(!projectName){
+    loading.fail(chalk.red(`项目名称为空，请重新输入`));
+    return;
+  }
   // 需要创建的目录地址
   const targetAir = path.join(cwd, projectName);
   if (fs.existsSync(targetAir)) {
@@ -223,4 +288,21 @@ export function printTeam(name?: string): void {
       ==================================================================================
     `),
   );
+}
+
+/**
+ * @description The end
+ * @default 
+ * @param {string} projectName
+ */
+ export function finishedTips (projectName?: string): void {
+  console.log(
+    chalk.greenBright(
+      '🎉 恭喜你，一切准备就绪。完成以下步骤，就可以开启愉快的编码之旅～\n'
+    )
+  );
+  console.log(
+    chalk.green(`1️⃣  进入项目根目录： ${chalk.yellow(`cd ${projectName}`)}\n`)
+  );
+  console.log(chalk.green(`2️⃣  安装依赖：${chalk.yellow(`yarn`)}\n`));
 }
