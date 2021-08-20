@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-20 22:47:31
+ * @LastEditTime: 2021-08-21 00:00:49
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -68,7 +68,7 @@ export interface JSON {
 }
 
 /**
- * @description:
+ * @description: 获取username
  * @param {*}
  * @return {*}
  */
@@ -113,22 +113,27 @@ export async function writePackage(fileName: string, obj: unknown): Promise<void
   const startTime = Date.now();
   loading.start(chalk.yellow(`开始初始化项目...`));
   // 需要创建的目录地址
-  const targetAir = path.join(cwd, fileName);
+  const targetDir = path.join(cwd, fileName);
   return new Promise((resolve) => {
-    if (fs.existsSync(targetAir)) {
-      const data = fs.readFileSync(targetAir).toString();
+    if (fs.existsSync(targetDir)) {
+      const data = fs.readFileSync(targetDir).toString();
       const json = JSON.parse(data);
       Object.keys(obj).forEach((key) => {
         json[key] = obj[key];
       });
-      fs.writeFileSync(targetAir, JSON.stringify(json, null, '\t'), 'utf-8');
+      fs.writeFileSync(targetDir, JSON.stringify(json, null, '\t'), 'utf-8');
       loading.succeed(chalk.green(`项目初始化完成！ [耗时${Date.now() - startTime}ms]\n`));
       resolve();
     }
   });
 }
 
-// 执行shell命令
+/**
+ * @description: 执行shell命令
+ * @param {string} cmd
+ * @param {string} text
+ * @return {*}
+ */
 export async function loadCmd(cmd: string, text: string): Promise<void> {
   const loading = ora();
   const startTime = Date.now();
@@ -139,7 +144,6 @@ export async function loadCmd(cmd: string, text: string): Promise<void> {
     console.log('');
     console.log(symbol.error, chalk.red(`execute command failed: ${text}\n`));
     console.log(symbol.info, chalk.redBright(`failed reason: ${err}`));
-
     exit();
   }
   loading.succeed(chalk.green(`${chalk.whiteBright(text)}: 命令执行完成 [耗时${Date.now() - startTime}ms]\n`));
@@ -230,18 +234,18 @@ export function getGitConfig<T>(url: string): T {
  * @param {*} name 项目名称
  * @return {*}
  */
-export async function handleDirExist(options: IOptions): Promise<void> {
+export async function validateProjectName(options: IOptions): Promise<void> {
   const { projectName } = options;
   if (!projectName) {
     loading.fail(chalk.red(`项目名称为空，请重新输入`));
     return;
   }
   // 需要创建的目录地址
-  const targetAir = path.join(cwd, projectName);
-  if (fs.existsSync(targetAir)) {
+  const targetDir = path.join(cwd, projectName);
+  if (fs.existsSync(targetDir)) {
     // 是否强制创建？
     if (options?.force) {
-      await fs.remove(targetAir);
+      await fs.remove(targetDir);
     } else {
       // TODO：询问用户是否确定要覆盖
       const { action } = await inquirer.prompt([
@@ -262,11 +266,13 @@ export async function handleDirExist(options: IOptions): Promise<void> {
         },
       ]);
       if (!action) {
-        exit(1);
+        return;
+      } else if (action === 'overwrite') {
+        console.log(`\nRemoving ${chalk.cyan(targetDir)}...`);
+        // 移除已存在的目录
+        await fs.remove(targetDir);
+        loading.succeed(chalk.green(`删除成功 \n`));
       }
-      // 移除已存在的目录
-      await fs.remove(targetAir);
-      loading.succeed(chalk.green(`删除成功 \n`));
     }
   }
 }

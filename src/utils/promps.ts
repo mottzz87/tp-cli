@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 17:55:19
- * @LastEditTime: 2021-08-20 22:50:41
+ * @LastEditTime: 2021-08-20 23:31:15
  * @LastEditors: Vane
  * @Description: 项目交互
  * @FilePath: \tp-cli\src\utils\promps.ts
@@ -63,7 +63,7 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
   promps.push({
     type: 'input',
     name: 'author',
-    message: '请输入作者: ',
+    message: '请输入作者名称: ',
     default: 'Team',
   });
 

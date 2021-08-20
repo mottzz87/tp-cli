@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 11:49:10
- * @LastEditTime: 2021-08-20 21:53:38
+ * @LastEditTime: 2021-08-20 23:56:23
  * @LastEditors: Vane
  * @Description: 项目创建
  * @FilePath: \tp-cli\src\commands\create.ts
@@ -12,7 +12,7 @@ import chalk from 'chalk';
 import { initPromps, gitPromps } from '../utils/promps';
 import configData from '../assets/config.json';
 
-import { handleDirExist, IOptions, downloadTemplate, writePackage, initGit, finishedTips } from '../utils/common';
+import { validateProjectName, IOptions, downloadTemplate, writePackage, initGit, finishedTips } from '../utils/common';
 
 const loading = ora();
 
@@ -23,7 +23,7 @@ export default async (options: IOptions): Promise<void> => {
   let answers: IOptions = await initPromps(options);
 
   // 目录已存在交互
-  await handleDirExist(answers);
+  await validateProjectName(answers);
 
   const { projectName, type, frame, author, description, version } = answers;
   const { url } = templates.PC_Vue;
