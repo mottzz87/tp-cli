@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-20 15:58:52
+ * @LastEditTime: 2021-08-20 21:02:36
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -24,6 +24,8 @@ program
   .option('-p, --projectName [projectName]', '项目名称')
   .option('-t, --type [H5 | PC | MINIAPP]', '项目类型')
   .option('-f, --frame [Vue | Taro | React]', '技术栈类型')
+  .option('-au, --author', '作者')
+  .option('-v, --version', '版本号')
   .option('-f, --force', '若目录存在则直接覆盖')
   .action(async (options: IOptions) => {
     // 逼格plus
@@ -42,7 +44,8 @@ program
   .description('录入脚手架gitlab配置信息')
   .action(() => {
     const args = process.argv.slice(3);
-    if (!args.length) {
+    const [action, key, value] = args;
+    if (!args.length || !Object.keys(Rc).includes(action)) {
       console.log(chalk.redBright('🙄 命令输入错误，请参照以下示例命令'));
       console.log('\nExamples:');
       console.log(chalk.gray('# 设置配置数据'));
@@ -54,7 +57,6 @@ program
       console.log(chalk.gray('# 查看全部配置列表'));
       console.log(chalk.yellow('$ tp-cli config get'));
     } else {
-      const [action, key, value] = args;
       Rc[action](key, value);
     }
   })

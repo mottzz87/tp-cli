@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 22:22:23
- * @LastEditTime: 2021-08-20 11:40:17
+ * @LastEditTime: 2021-08-20 21:20:07
  * @LastEditors: Vane
  * @Description: 系统配置本地存储（${HOME}/.tpclirc）
  * @FilePath: \tp-cli\src\utils\rc.ts
@@ -75,7 +75,7 @@ const Rc = {
       return key ? opts[key] : opts;
     }
     loading.fail(chalk.red(`配置文件不存在 [耗时${Date.now() - startTime}ms]\n`));
-    return '';
+    return;
   },
 
   /**

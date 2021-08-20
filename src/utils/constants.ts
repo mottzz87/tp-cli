@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-08-19 22:21:38
+ * @LastEditTime: 2021-08-20 22:33:29
  * @LastEditors: Vane
  * @Description: 全局变量
  * @FilePath: \tp-cli\src\utils\constants.ts
@@ -19,7 +19,7 @@ export const COMMAND_CREATE = 'create';
 export const COMMAND_CONFIG = 'config';
 
 /** 脚手架系统目录 */
-export const DIR = '.tp-cli';
+export const DIR = '.tpcli';
 
 /** 脚手架日志目录 */
 export const DIR_LOG = 'logs';
@@ -28,7 +28,7 @@ export const DIR_LOG = 'logs';
 export const VERSION = version;
 
 /** 配置文件目录 */
-export const RC = `${HOME}/.tpclirc`;
+export const RC = `${HOME}/${DIR}rc`;
 
 /** gitlab url */
 export const KEY_GITLAB_URL = 'gitlab_url';
@@ -42,8 +42,11 @@ export const KEY_GITLAB_USERNAME = 'gitlab_username';
 /** gitlab password */
 export const KEY_GITLAB_PASSWORD = 'gitlab_password';
 
+/** gitlab 二级域名 */
+export const GITLAB_ADDR = 'git.mobimedical.cn';
+
 /** gitlab默认url */
-export const GITLAB_URL = 'http://git.mobimedical.cn/api/v4';
+export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`;
 
 /** gitlab默认token */
 export const GITLAB_TOKEN = '';
