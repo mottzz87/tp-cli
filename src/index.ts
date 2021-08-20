@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-20 01:11:16
+ * @LastEditTime: 2021-08-20 11:45:12
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -9,13 +9,9 @@
 import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
+import Rc from './utils/rc';
+import { GITLAB_URL } from './utils/constants';
 import {
-  // exec,
-  // getGitlabUrl,
-  // getGitlabToken,
-  // getGitlabAuth,
-  // customExec,
-  // handleError,
   printTeam,
   handleNoAuth,
   handleDirExist,
@@ -31,7 +27,7 @@ program
   .option('-f, --force', '若目录存在则直接覆盖')
   .action(async (name: string, options: unknown) => {
     // 逼格plus
-    printTeam();
+    printTeam('EMT-FE');
 
     // 无授权自动退出
     handleNoAuth();
@@ -40,30 +36,32 @@ program
     handleDirExist(name, options);
   });
 
+// 配置gitlab 本地存储
 program
   .command('config')
-  .description('录入脚手架配置信息')
+  .description('录入脚手架gitlab配置信息')
   .action(() => {
     const args = process.argv.slice(3);
-    if (args.length === 0) {
+    if (!args.length) {
       console.log(chalk.redBright('🙄 命令输入错误，请参照以下示例命令'));
       console.log('\nExamples:');
       console.log(chalk.gray('# 设置配置数据'));
-      console.log(chalk.yellow('$ tp-cli config set gitlab_url http://git.mobimedical.cn/api/v4'));
+      console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
       console.log(chalk.gray('# 读取指定配置数据'));
       console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
       console.log(chalk.gray('# 移除指定配置数据'));
       console.log(chalk.yellow('$ tp-cli config remove gitlab_url'));
       console.log(chalk.gray('# 查看全部配置列表'));
-      console.log(chalk.yellow('$ tp-cli config list'));
+      console.log(chalk.yellow('$ tp-cli config get'));
     } else {
-      console.log(process.argv, args);
+      const [action, key, value] = args;
+      Rc[action](key, value);
     }
   })
   .on('--help', function () {
     console.log('\nExamples:');
     console.log(chalk.gray('# 设置配置数据'));
-    console.log(chalk.yellow('$ tp-cli config set gitlab_url http://git.mobimedical.cn/api/v4'));
+    console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
     console.log(chalk.gray('# 读取指定配置数据'));
     console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
     console.log(chalk.gray('# 移除指定配置数据'));

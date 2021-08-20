@@ -1,28 +1,37 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-20 01:01:41
+ * @LastEditTime: 2021-08-20 11:20:14
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
  */
 import chalk from 'chalk';
-import util from 'util';
 import inquirer from 'inquirer';
 import path from 'path';
 import fs from 'fs-extra';
+// import { yo } from 'yoo-hoo';
 import { version } from '../../package.json';
-// import symbol from 'log-symbols';
+import symbol from 'log-symbols';
 import { exit } from 'process';
 import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD } from './constants';
-import child_process = require('child_process');
-
 import Rc from './rc';
-
-const exec = util.promisify(child_process.exec);
 
 // 当前命令行选择的目录
 const cwd = process.cwd();
+
+export interface PackageJSON {
+  name: string;
+  version: string;
+  description: string;
+  scripts: {
+    [key: string]: string;
+  };
+}
+
+export interface JSON {
+  [key: string]: unknown;
+}
 
 /**
  * @description:
@@ -32,15 +41,15 @@ const cwd = process.cwd();
 const getGitlabAuth = async (): Promise<unknown> => {
   const username = await Rc.get(KEY_GITLAB_USERNAME);
   const password = await Rc.get(KEY_GITLAB_PASSWORD);
-  if (username && password) {
+  if (username || password) {
     return { username, password };
   } else {
-    return undefined;
+    return {};
   }
 };
 
 /**
- * @description:
+ * @description: 无授权逻辑
  * @param {*}
  * @return {*}
  */
@@ -55,26 +64,26 @@ const handleNoAuth = async (): Promise<void> => {
     console.log(chalk.yellow('$ tp-cli config set gitlab_password xxx'));
     exit();
   }
-  const cmd_git_user = `git config --get --global user.name`;
-  const cmd_git_email = `git config --get --global user.email`;
-
-  try {
-    await exec(cmd_git_user);
-  } catch (error) {
-    console.log(chalk.blueBright('🐶 检测到您未配置git用户信息，请先设置用户名称：'));
-    console.log('\nExamples:');
-    console.log(chalk.yellow('$ git config --global user.name "Your Name"\n'));
-    handleError(error, true);
-  }
-  try {
-    await exec(cmd_git_email);
-  } catch (error) {
-    console.log(chalk.blueBright('🐶 检测到您未配置git邮箱地址，请先设置邮箱地址：'));
-    console.log('\nExamples:');
-    console.log(chalk.yellow('$ git config --global user.email "you@example.com"\n'));
-    handleError(error, true);
-  }
 };
+
+/**
+ * @description 读取指定路径下 json 文件
+ * @default
+ * @param {string} filename 文件的路径
+ */
+export function readJsonFile<T>(filename: string): T {
+  return JSON.parse(fs.readFileSync(filename, { encoding: 'utf-8', flag: 'r' }));
+}
+
+/**
+ * @description 覆写指定路径下的 json 文件
+ * @default
+ * @param {string} filename json 文件的路径
+ * @param {T} content json 内容
+ */
+export function writeJsonFile<T>(filename: string, content: T): void {
+  fs.writeFileSync(filename, JSON.stringify(content, null, 2));
+}
 
 /**
  * @description: 目录是否已经存在
@@ -126,32 +135,22 @@ const handleDirExist = async (name: string, options: { force?: boolean }): Promi
  */
 const handleError = (err?: unknown, quiet = false): unknown => {
   if (err && !quiet) {
-    console.log(chalk.red(`${err}\n`));
+    console.log(symbol.error, chalk.red(`${err}\n`));
   }
   exit(2);
 };
 
-const printTeam = (): void => {
+const printTeam = (name?: string): void => {
+  const [cName] = name?.split('-');
   console.log(
-    chalk.blue(`
+    chalk.red(`
       ==================================================================================
       ==================================================================================
       ==                                                                              ==
-      ==      ▄▄▄▄▄▄▄▄▄▄▄ ▄▄       ▄▄ ▄▄▄▄▄▄▄▄▄▄▄        ▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄      ==
-      ==      ▐░░░░░░░░░░░▐░░▌     ▐░░▐░░░░░░░░░░░▌      ▐░░░░░░░░░░░▐░░░░░░░░░░░▌    ==
-      ==      ▐░█▀▀▀▀▀▀▀▀▀▐░▌░▌   ▐░▐░▌▀▀▀▀█░█▀▀▀▀       ▐░█▀▀▀▀▀▀▀▀▀▐░█▀▀▀▀▀▀▀▀▀     ==
-      ==      ▐░▌         ▐░▌▐░▌ ▐░▌▐░▌    ▐░▌           ▐░▌         ▐░▌              ==
-      ==      ▐░█▄▄▄▄▄▄▄▄▄▐░▌ ▐░▐░▌ ▐░▌    ▐░▌▄▄▄▄▄▄▄▄▄▄▄▐░█▄▄▄▄▄▄▄▄▄▐░█▄▄▄▄▄▄▄▄▄     ==
-      ==      ▐░░░░░░░░░░░▐░▌  ▐░▌  ▐░▌    ▐░▐░░░░░░░░░░░▐░░░░░░░░░░░▐░░░░░░░░░░░▌    ==
-      ==      ▐░█▀▀▀▀▀▀▀▀▀▐░▌   ▀   ▐░▌    ▐░▌▀▀▀▀▀▀▀▀▀▀▀▐░█▀▀▀▀▀▀▀▀▀▐░█▀▀▀▀▀▀▀▀▀     ==
-      ==      ▐░▌         ▐░▌       ▐░▌    ▐░▌           ▐░▌         ▐░▌              ==
-      ==      ▐░█▄▄▄▄▄▄▄▄▄▐░▌       ▐░▌    ▐░▌           ▐░▌         ▐░█▄▄▄▄▄▄▄▄▄     ==
-      ==      ▐░░░░░░░░░░░▐░▌       ▐░▌    ▐░▌           ▐░▌         ▐░░░░░░░░░░░▌    ==
-      ==       ▀▀▀▀▀▀▀▀▀▀▀ ▀         ▀      ▀             ▀           ▀▀▀▀▀▀▀▀▀▀▀     ==
       ==                                                                              ==
-      ==                          ${chalk.yellow.bold(`- EMT前端团队脚手架 -`)}                          ==
+      ==                          ${chalk.yellow.bold(`- ${cName}前端团队脚手架 -`)}                               ==
       ==                                                                              ==
-      ==                                   ${chalk.yellow(`v${version}`)}                                     ==   
+      ==                                 ${chalk.yellow(`v${version}`)}                                       ==
       ==                                                                              ==
       ==================================================================================
       ==================================================================================
