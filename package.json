@@ -34,7 +34,7 @@
     "tp-cli",
     "脚手架"
   ],
-  "author": "",
+  "author": "Vane",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
@@ -66,6 +66,7 @@
     "ini": "^2.0.0",
     "inquirer": "^8.1.2",
     "log-symbols": "^4.1.0",
+    "node-fetch": "^2.6.1",
     "ora": "^5.4.1",
     "path": "^0.12.7",
     "shelljs": "^0.8.4",

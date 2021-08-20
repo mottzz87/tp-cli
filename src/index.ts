@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-20 11:45:12
+ * @LastEditTime: 2021-08-20 15:58:52
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -11,29 +11,29 @@ import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL } from './utils/constants';
-import {
-  printTeam,
-  handleNoAuth,
-  handleDirExist,
-} from './utils/common';
+import { printTeam, handleNoAuth, IOptions } from './utils/common';
+
+import create from './commands/create';
 
 program.version(version).description(description);
 
 // create app-name
 program
-  .command('create <app-name>')
+  .command('create')
   .description('创建项目，提供初始化项目模版选择')
-  // -f or --force 为强制创建，如果创建的目录存在则直接覆盖
+  .option('-p, --projectName [projectName]', '项目名称')
+  .option('-t, --type [H5 | PC | MINIAPP]', '项目类型')
+  .option('-f, --frame [Vue | Taro | React]', '技术栈类型')
   .option('-f, --force', '若目录存在则直接覆盖')
-  .action(async (name: string, options: unknown) => {
+  .action(async (options: IOptions) => {
     // 逼格plus
     printTeam('EMT-FE');
 
     // 无授权自动退出
-    handleNoAuth();
+    await handleNoAuth();
 
-    // 目录已存在提示覆盖
-    handleDirExist(name, options);
+    //创建
+    create(options);
   });
 
 // 配置gitlab 本地存储

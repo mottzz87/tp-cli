@@ -63,13 +63,13 @@ const Rc = {
     if (exit) {
       opts = await readFile(RC, 'utf8');
       opts = decode(opts);
-      if(!key) {
+      if (!key) {
         //查询所有
         Object.keys(opts).forEach((key: string) => {
           console.log(chalk.green(`    -) ${key || 'config'}: ${opts[key]} \n`));
         });
         console.log(chalk.green(`   >>> ${'配置载入成功'} [耗时${Date.now() - startTime}ms]\n`));
-      }else if (key) {
+      } else if (key) {
         loading.succeed(chalk.green(`>>> ${key}: ${opts[key]} [耗时${Date.now() - startTime}ms]\n`));
       }
       return key ? opts[key] : opts;
