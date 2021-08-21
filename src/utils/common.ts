@@ -1,13 +1,12 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-21 00:00:49
+ * @LastEditTime: 2021-08-21 14:18:07
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
  */
 import chalk from 'chalk';
-import inquirer from 'inquirer';
 import path from 'path';
 import ora from 'ora';
 import util from 'util';
@@ -16,9 +15,10 @@ import downloadGit from 'download-git-repo';
 import fs from 'fs-extra';
 // import { yo } from 'yoo-hoo';
 import { version } from '../../package.json';
+import configData from '../assets/config.json';
 import symbol from 'log-symbols';
 import { exit } from 'process';
-import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD } from './constants';
+import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD, GITLAB_ADDR } from './constants';
 import Rc from './rc';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -47,6 +47,14 @@ export interface PackageJSON {
   };
 }
 
+interface Obj {
+  json: () => unknown;
+}
+
+export interface JSON {
+  [key: string]: unknown;
+}
+
 export interface IAuth {
   username?: string;
   password?: string;
@@ -59,16 +67,8 @@ const cwd = process.cwd();
 
 const loading = ora();
 
-interface Obj {
-  json: () => unknown;
-}
-
-export interface JSON {
-  [key: string]: unknown;
-}
-
 /**
- * @description: 获取username
+ * @description: 获取username、password
  * @param {*}
  * @return {*}
  */
@@ -83,18 +83,37 @@ export async function getGitlabAuth(): Promise<unknown> {
 }
 
 /**
+ * @description ping ip （义幻的gitlab常态性500，故访问前检测ip是否可用）
+ * @default
+ * @param {string} projectName
+ * @param {string} api
+ */
+export async function pingIp(ip?: string): Promise<void> {
+  await loadCmd(`ping -c 5 ${ip || GITLAB_ADDR}`, 'git仓库服务器检测');
+}
+
+/**
  * @description 项目模板下载
  * @default
  * @param {string} projectName
  * @param {string} api
  */
-export async function downloadTemplate(projectName: string, api: string): Promise<void> {
+export async function downloadTemplate(options: IOptions): Promise<void> {
+  const { templates } = configData;
+  const { url } = templates.PC_Vue;
+  const { projectName, type, frame } = options;
+  const api = `direct:${url}`;
+  if (!url) {
+    loading.fail(chalk.red(`  >>>> 暂无[${type}]+[${frame}]项目模版`));
+    return;
+  }
+
   loading.start(chalk.yellow(`开始拉取模板...`));
   return new Promise((resolve, reject) => {
     // 各代码仓库用法参考 https://www.npmjs.com/package/download-git-repo
     downloadGit(api, projectName, { clone: true }, (err: unknown) => {
       if (err) {
-        reject(`模板拉取失败\n${err}`);
+        return reject(`模板拉取失败\n${err}`);
       } else {
         loading.succeed(chalk.green(`模板拉取成功！ \n`));
         resolve();
@@ -111,7 +130,7 @@ export async function downloadTemplate(projectName: string, api: string): Promis
  */
 export async function writePackage(fileName: string, obj: unknown): Promise<void> {
   const startTime = Date.now();
-  loading.start(chalk.yellow(`开始初始化项目...`));
+  loading.start(chalk.yellow(`开始写入${fileName}...`));
   // 需要创建的目录地址
   const targetDir = path.join(cwd, fileName);
   return new Promise((resolve) => {
@@ -122,7 +141,7 @@ export async function writePackage(fileName: string, obj: unknown): Promise<void
         json[key] = obj[key];
       });
       fs.writeFileSync(targetDir, JSON.stringify(json, null, '\t'), 'utf-8');
-      loading.succeed(chalk.green(`项目初始化完成！ [耗时${Date.now() - startTime}ms]\n`));
+      loading.succeed(chalk.green(`文件${fileName}写入完成！ [耗时${Date.now() - startTime}ms]\n`));
       resolve();
     }
   });
@@ -230,54 +249,6 @@ export function getGitConfig<T>(url: string): T {
 }
 
 /**
- * @description: 目录是否已经存在
- * @param {*} name 项目名称
- * @return {*}
- */
-export async function validateProjectName(options: IOptions): Promise<void> {
-  const { projectName } = options;
-  if (!projectName) {
-    loading.fail(chalk.red(`项目名称为空，请重新输入`));
-    return;
-  }
-  // 需要创建的目录地址
-  const targetDir = path.join(cwd, projectName);
-  if (fs.existsSync(targetDir)) {
-    // 是否强制创建？
-    if (options?.force) {
-      await fs.remove(targetDir);
-    } else {
-      // TODO：询问用户是否确定要覆盖
-      const { action } = await inquirer.prompt([
-        {
-          name: 'action',
-          type: 'list',
-          message: '目录已存在，请选择',
-          choices: [
-            {
-              name: '覆盖',
-              value: 'overwrite',
-            },
-            {
-              name: '退出',
-              value: false,
-            },
-          ],
-        },
-      ]);
-      if (!action) {
-        return;
-      } else if (action === 'overwrite') {
-        console.log(`\nRemoving ${chalk.cyan(targetDir)}...`);
-        // 移除已存在的目录
-        await fs.remove(targetDir);
-        loading.succeed(chalk.green(`删除成功 \n`));
-      }
-    }
-  }
-}
-
-/**
  * @description: 异常处理
  * @param {*} err
  * @return {*}
@@ -313,7 +284,7 @@ export function printTeam(name?: string): void {
 }
 
 /**
- * @description The end
+ * @description The End
  * @default
  * @param {string} projectName
  */
