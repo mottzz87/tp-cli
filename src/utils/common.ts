@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-22 19:28:38
+ * @LastEditTime: 2021-08-22 19:49:19
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -108,7 +108,7 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
     return;
   }
 
-  loading.start(chalk.yellow(`开始拉取模板...`));
+  loading.start(chalk.yellow(`Pulling template...`));
   return new Promise((resolve, reject) => {
     // 各代码仓库用法参考 https://www.npmjs.com/package/download-git-repo
     downloadGit(api, projectName, { clone: true }, (err: unknown) => {
