@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-21 13:31:26
+ * @LastEditTime: 2021-08-22 18:39:46
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -12,8 +12,7 @@ import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL } from './utils/constants';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
-
-import create from './commands/create';
+import { create } from './commands';
 
 program.version(version).description(description);
 

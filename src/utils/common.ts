@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-21 14:18:07
+ * @LastEditTime: 2021-08-22 18:18:10
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -89,7 +89,7 @@ export async function getGitlabAuth(): Promise<unknown> {
  * @param {string} api
  */
 export async function pingIp(ip?: string): Promise<void> {
-  await loadCmd(`ping -c 5 ${ip || GITLAB_ADDR}`, 'git仓库服务器检测');
+  await loadCmd(`ping ${ip || GITLAB_ADDR}`, 'git远程仓库连接');
 }
 
 /**
@@ -100,8 +100,8 @@ export async function pingIp(ip?: string): Promise<void> {
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
   const { templates } = configData;
-  const { url } = templates.PC_Vue;
   const { projectName, type, frame } = options;
+  const { url } = templates[`${type}_${frame}`];
   const api = `direct:${url}`;
   if (!url) {
     loading.fail(chalk.red(`  >>>> 暂无[${type}]+[${frame}]项目模版`));
@@ -161,8 +161,8 @@ export async function loadCmd(cmd: string, text: string): Promise<void> {
     await exec(cmd);
   } catch (err) {
     console.log('');
-    console.log(symbol.error, chalk.red(`execute command failed: ${text}\n`));
-    console.log(symbol.info, chalk.redBright(`failed reason: ${err}`));
+    console.log(symbol.error, chalk.red(`execute command failed: ${text} [耗时${Date.now() - startTime}ms] \n`));
+    console.log(symbol.info, chalk.redBright(`failed reason: ${err} \n`));
     exit();
   }
   loading.succeed(chalk.green(`${chalk.whiteBright(text)}: 命令执行完成 [耗时${Date.now() - startTime}ms]\n`));
