@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 22:22:23
- * @LastEditTime: 2021-08-20 21:20:07
+ * @LastEditTime: 2021-08-22 19:34:30
  * @LastEditors: Vane
  * @Description: 系统配置本地存储（${HOME}/.tpclirc）
  * @FilePath: \tp-cli\src\utils\rc.ts
@@ -34,11 +34,11 @@ const Rc = {
     const startTime = Date.now();
     if (exit) {
       if (!key) {
-        loading.fail(chalk.red(`添加失败: key is required\n`));
+        loading.fail(chalk.red(`Failed to add: key is required\n`));
         handleError();
       }
       if (!value) {
-        loading.fail(chalk.red(`添加失败: value is required\n`));
+        loading.fail(chalk.red(`Failed to add: value is required\n`));
         handleError();
       }
       opts = await readFile(RC, 'utf8');
@@ -48,7 +48,7 @@ const Rc = {
       opts = Object.assign({}, { [key]: value });
     }
     await writeFile(RC, encode(opts), 'utf8');
-    loading.succeed(chalk.green(`新增成功: ${key} => ${value} [耗时${Date.now() - startTime}ms]\n`));
+    loading.succeed(chalk.green(`Added successfully: ${key} => ${value} [Takes ${Date.now() - startTime}ms]\n`));
   },
 
   /**
@@ -68,13 +68,13 @@ const Rc = {
         Object.keys(opts).forEach((key: string) => {
           console.log(chalk.green(`    -) ${key || 'config'}: ${opts[key]} \n`));
         });
-        console.log(chalk.green(`   >>> ${'配置载入成功'} [耗时${Date.now() - startTime}ms]\n`));
+        console.log(chalk.green(`   >>> ${'Configuration loaded successfully'} [Takes ${Date.now() - startTime}ms]\n`));
       } else if (key) {
-        loading.succeed(chalk.green(`>>> ${key}: ${opts[key]} [耗时${Date.now() - startTime}ms]\n`));
+        loading.succeed(chalk.green(`>>> ${key}: ${opts[key]} [Takes ${Date.now() - startTime}ms]\n`));
       }
       return key ? opts[key] : opts;
     }
-    loading.fail(chalk.red(`配置文件不存在 [耗时${Date.now() - startTime}ms]\n`));
+    loading.fail(chalk.red(`The configuration file does not exist [Takes ${Date.now() - startTime}ms]\n`));
     return;
   },
 
@@ -85,18 +85,18 @@ const Rc = {
    */
   remove: async (key: string): Promise<void> => {
     let opts = {};
-    loading.start(chalk.yellow(`删除配置数据中...\n`));
+    loading.start(chalk.yellow(`Deleting configuration data...\n`));
     const exit = await exists(RC);
     const startTime = Date.now();
     if (exit) {
       opts = await readFile(RC, 'utf8');
       opts = decode(opts);
       if (!Object.keys(opts).includes(key)) {
-        loading.fail(chalk.red(`删除的key不存在 [耗时${Date.now() - startTime}ms]\n`));
+        loading.fail(chalk.red(`The deleted key does not exist [Takes ${Date.now() - startTime}ms]\n`));
       } else {
         delete opts[key];
         await writeFile(RC, encode(opts), 'utf8');
-        loading.succeed(chalk.green(`删除配置数据成功 [耗时${Date.now() - startTime}ms]\n`));
+        loading.succeed(chalk.green(`Successfully delete configuration data [Takes ${Date.now() - startTime}ms]\n`));
       }
     }
   },

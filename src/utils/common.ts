@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-22 18:18:10
+ * @LastEditTime: 2021-08-22 19:28:38
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -89,7 +89,7 @@ export async function getGitlabAuth(): Promise<unknown> {
  * @param {string} api
  */
 export async function pingIp(ip?: string): Promise<void> {
-  await loadCmd(`ping ${ip || GITLAB_ADDR}`, 'git远程仓库连接');
+  await loadCmd(`ping ${ip || GITLAB_ADDR}`, 'Connect to remote git repository');
 }
 
 /**
@@ -104,7 +104,7 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
   const { url } = templates[`${type}_${frame}`];
   const api = `direct:${url}`;
   if (!url) {
-    loading.fail(chalk.red(`  >>>> 暂无[${type}]+[${frame}]项目模版`));
+    loading.fail(chalk.red(`  >>>> No [${type}]+[${frame}] project template`));
     return;
   }
 
@@ -113,9 +113,9 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
     // 各代码仓库用法参考 https://www.npmjs.com/package/download-git-repo
     downloadGit(api, projectName, { clone: true }, (err: unknown) => {
       if (err) {
-        return reject(`模板拉取失败\n${err}`);
+        return reject(`Template pull failed\n${err}`);
       } else {
-        loading.succeed(chalk.green(`模板拉取成功！ \n`));
+        loading.succeed(chalk.green(`The template is successfully pulled! \n`));
         resolve();
       }
     });
@@ -130,7 +130,7 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
  */
 export async function writePackage(fileName: string, obj: unknown): Promise<void> {
   const startTime = Date.now();
-  loading.start(chalk.yellow(`开始写入${fileName}...`));
+  loading.start(chalk.yellow(`Start writing ${fileName}...`));
   // 需要创建的目录地址
   const targetDir = path.join(cwd, fileName);
   return new Promise((resolve) => {
@@ -141,7 +141,7 @@ export async function writePackage(fileName: string, obj: unknown): Promise<void
         json[key] = obj[key];
       });
       fs.writeFileSync(targetDir, JSON.stringify(json, null, '\t'), 'utf-8');
-      loading.succeed(chalk.green(`文件${fileName}写入完成！ [耗时${Date.now() - startTime}ms]\n`));
+      loading.succeed(chalk.green(`${fileName} File written successfully! [Takes ${Date.now() - startTime}ms]\n`));
       resolve();
     }
   });
@@ -156,16 +156,18 @@ export async function writePackage(fileName: string, obj: unknown): Promise<void
 export async function loadCmd(cmd: string, text: string): Promise<void> {
   const loading = ora();
   const startTime = Date.now();
-  loading.start(chalk.yellow(`${chalk.whiteBright(text)}: 命令执行中...\n`));
+  loading.start(chalk.yellow(`${chalk.whiteBright(text)}: The command is executing......\n`));
   try {
     await exec(cmd);
   } catch (err) {
     console.log('');
-    console.log(symbol.error, chalk.red(`execute command failed: ${text} [耗时${Date.now() - startTime}ms] \n`));
+    console.log(symbol.error, chalk.red(`execute command failed: ${text} [Takes ${Date.now() - startTime}ms] \n`));
     console.log(symbol.info, chalk.redBright(`failed reason: ${err} \n`));
     exit();
   }
-  loading.succeed(chalk.green(`${chalk.whiteBright(text)}: 命令执行完成 [耗时${Date.now() - startTime}ms]\n`));
+  loading.succeed(
+    chalk.green(`${chalk.whiteBright(text)}: The command is executing... [Takes ${Date.now() - startTime}ms]\n`),
+  );
 }
 
 /**
@@ -187,11 +189,11 @@ export async function initGitLocal(answer: IOptions): Promise<void> {
   const { projectName } = answer;
 
   await loadCmd(
-    `cd ${projectName} && git init && git add . && git commit -m "feat: ✨初始化项目"`,
-    '初始化本地git仓库',
+    `cd ${projectName} && git init && git add . && git commit -m "feat: ✨Initialize the project"`,
+    'Initialize the local git repository',
   );
-  await loadCmd(`cd ${projectName} && git checkout -b develop`, '创建develop分支');
-  await loadCmd(`cd ${projectName} && git checkout -b feat/1.0.0`, '创建并切换至feat/1.0.0分支');
+  await loadCmd(`cd ${projectName} && git checkout -b develop`, 'Create a develop branch');
+  await loadCmd(`cd ${projectName} && git checkout -b feat/1.0.0`, 'Create and switch to feat/1.0.0 branch');
 
   finishedTips(projectName);
 }
@@ -205,11 +207,11 @@ export async function initGitRemote(answer: IOptions): Promise<void> {
   const { projectName, gitRepo } = answer;
 
   await loadCmd(
-    `cd ${projectName} && git init && git remote add origin ${gitRepo} && git add . && git commit -m "feat: ✨初始化项目"`,
-    '初始化git远端仓库',
+    `cd ${projectName} && git init && git remote add origin ${gitRepo} && git add . && git commit -m "feat: ✨Initialize the project"`,
+    'Initialize the remote git repository',
   );
-  await loadCmd(`cd ${projectName} && git checkout -b develop`, '创建develop分支');
-  await loadCmd(`cd ${projectName} && git checkout -b feat/1.0.0`, '创建并切换至feat/1.0.0分支');
+  await loadCmd(`cd ${projectName} && git checkout -b develop`, 'Create a develop branch');
+  await loadCmd(`cd ${projectName} && git checkout -b feat/1.0.0`, 'Create and switch to feat/1.0.0 branch');
 
   finishedTips(projectName);
 }
@@ -223,8 +225,16 @@ export async function handleNoAuth(): Promise<void> {
   //无授权等提示
   const authInfo = await getGitlabAuth();
   if (!authInfo) {
-    console.log(chalk.blueBright('🐶 检测到您未配置gitlab帐号信息，请先配置用户名和密码'));
-    console.log(chalk.blueBright('🐶 请执行以下命令，xxx需替换为真实的用户名和密码'));
+    console.log(
+      chalk.blueBright(
+        '🐶 It is detected that you have not configured the gitlab account information, please configure the user name and password first',
+      ),
+    );
+    console.log(
+      chalk.blueBright(
+        '🐶 Please execute the following command, xxx needs to be replaced with the real user name and password',
+      ),
+    );
     console.log('\nExamples:');
     console.log(chalk.yellow('$ tp-cli config set gitlab_username xxx'));
     console.log(chalk.yellow('$ tp-cli config set gitlab_password xxx'));
@@ -239,11 +249,11 @@ export async function handleNoAuth(): Promise<void> {
  */
 export function getGitConfig<T>(url: string): T {
   const startTime = Date.now();
-  loading.start(chalk.yellow(`加载远程配置中...\n`));
+  loading.start(chalk.yellow(`Loading remote configuration...\n`));
   return fetch(url)
     .then((res: Obj) => res.json())
     .then((data: unknown) => {
-      loading.succeed(chalk.green(`远程配置加载完成 [耗时${Date.now() - startTime}ms]\n`));
+      loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
       return data;
     });
 }
@@ -290,8 +300,8 @@ export function printTeam(name?: string): void {
  */
 export function finishedTips(projectName?: string): void {
   console.log('\n');
-  console.log(chalk.greenBright('🎉 恭喜你，一切准备就绪。完成以下步骤，就可以开启愉快的编码之旅～\n'));
-  console.log(chalk.green(`1️⃣  进入项目根目录： ${chalk.yellow(`cd ${projectName}`)}\n`));
-  console.log(chalk.green(`2️⃣  安装依赖：${chalk.yellow(`yarn`)}\n`));
+  console.log(chalk.greenBright('🎉 Congratulations, everything is ready。\n'));
+  console.log(chalk.green(`1️⃣   ${chalk.yellow(`cd ${projectName}`)}\n`));
+  console.log(chalk.green(`2️⃣   ${chalk.yellow(`yarn`)}\n`));
   console.log('\n');
 }

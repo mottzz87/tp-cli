@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 17:55:19
- * @LastEditTime: 2021-08-21 14:18:37
+ * @LastEditTime: 2021-08-22 19:06:43
  * @LastEditors: Vane
  * @Description: 脚手架交互
  * @FilePath: \tp-cli\src\utils\promps.ts
@@ -35,11 +35,11 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
     promps.push({
       type: 'input',
       name: 'projectName',
-      message: '请输入项目名称: ',
+      message: 'Please enter the project name: ',
       validate: (input: string) => {
         if (!input.length) {
           console.log('\n');
-          loading.fail(chalk.red(`--projectName 请输入项目名称`));
+          loading.fail(chalk.red(`--projectName Please enter the project name`));
           console.log('\n');
           return false;
         }
@@ -47,7 +47,7 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
           console.log('\n');
           loading.fail(
             chalk.red(
-              `--projectName 参数错误，项目名称格式不正确，仅允许小写字母、数字、"-"，且不能以"-"开头或结尾，不能以数字开头`,
+              `--projectName Parameter error, project name format is incorrect, only lowercase letters, numbers, "-" are allowed, and cannot start or end with "-", and cannot start with numbers`,
             ),
           );
           console.log('\n');
@@ -61,21 +61,21 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
   promps.push({
     type: 'input',
     name: 'description',
-    message: '请输入项目描述: ',
-    default: '项目描述',
+    message: 'Please enter a project description: ',
+    default: 'Project description',
   });
 
   promps.push({
     type: 'input',
     name: 'author',
-    message: '请输入作者名称: ',
+    message: 'Please enter the author name: ',
     default: 'Team',
   });
 
   promps.push({
     type: 'input',
     name: 'version',
-    message: '请输入版本号: ',
+    message: 'Please enter the version number: ',
     default: '1.0.0',
   });
 
@@ -83,7 +83,7 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
     promps.push({
       type: 'list',
       name: 'type',
-      message: '请选择要创建的项目类型：',
+      message: 'Please select the type of project to create：',
       choices: supportType,
     });
   }
@@ -92,7 +92,7 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
     promps.push({
       type: 'list',
       name: 'frame',
-      message: '请选择项目使用的技术栈：',
+      message: 'Please select the technology stack used by the project：',
       choices: supportFrame,
     });
   }
@@ -108,7 +108,7 @@ export async function initPromps(options: IOptions): Promise<IOptions> {
 export async function validateProjectNamePromps(options: IOptions): Promise<void> {
   const { projectName } = options;
   if (!projectName) {
-    loading.fail(chalk.red(`项目名称为空，请重新输入`));
+    loading.fail(chalk.red(`The project name is empty, please re-enter`));
     return;
   }
   // 需要创建的目录地址
@@ -123,14 +123,14 @@ export async function validateProjectNamePromps(options: IOptions): Promise<void
         {
           name: 'action',
           type: 'list',
-          message: '目录已存在，请选择',
+          message: 'The directory already exists, please select',
           choices: [
             {
-              name: '覆盖',
+              name: 'overwrite',
               value: 'overwrite',
             },
             {
-              name: '退出',
+              name: 'exit',
               value: false,
             },
           ],
@@ -142,7 +142,7 @@ export async function validateProjectNamePromps(options: IOptions): Promise<void
         console.log(`\nRemoving ${chalk.cyan(targetDir)}...`);
         // 移除已存在的目录
         await fs.remove(targetDir);
-        loading.succeed(chalk.green(`删除成功 \n`));
+        loading.succeed(chalk.green(`Deleted successfully \n`));
       }
     }
   }
@@ -158,13 +158,13 @@ export async function gitPromps(options: IOptions): Promise<IOptions> {
     {
       type: 'confirm',
       name: 'gitLocal',
-      message: '是否初始化本地git仓库?',
+      message: 'Whether to initialize the local git repository?',
       default: true,
     },
     {
       type: 'confirm',
       name: 'gitRemote',
-      message: '是否关联gitlab远程仓库?',
+      message: 'Whether to associate remote git repository?',
       default: false,
     },
   ];
@@ -175,19 +175,19 @@ export async function gitPromps(options: IOptions): Promise<IOptions> {
         {
           type: 'input',
           name: 'gitRepo',
-          message: '请输入gitlab远程仓库地址',
+          message: 'Please enter the remote git repository',
           validate: (input: string) => {
             // 匹配.git 后缀
             const suffixReg = /^.*\.(?:git)$/i;
             if (!input.length) {
               console.log('\n');
-              loading.fail(chalk.red(`--gitRepo 请输入远程仓库地址`));
+              loading.fail(chalk.red(`--gitRepo Please enter the remote git repository`));
               console.log('\n');
               return false;
             }
             if (!suffixReg.test(input) || !input.includes(GITLAB_ADDR)) {
               console.log('\n');
-              loading.fail(chalk.red(`--gitRepo 地址错误，请正确填写远程仓库`));
+              loading.fail(chalk.red(`--gitRepo The address is wrong, please fill in the remote warehouse correctly`));
               console.log('\n');
               return false;
             }
