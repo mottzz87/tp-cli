@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-08-20 22:33:29
+ * @LastEditTime: 2021-08-23 13:58:03
  * @LastEditors: Vane
  * @Description: 全局变量
  * @FilePath: \tp-cli\src\utils\constants.ts
@@ -53,3 +53,7 @@ export const GITLAB_TOKEN = '';
 
 /** 远程配置地址 */
 export const CONFIG_URL = '';
+
+/** npm地址 */
+export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
+

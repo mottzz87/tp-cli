@@ -61,6 +61,7 @@
     "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
+    "axios": "^0.21.1",
     "bunyan": "^1.8.15",
     "chalk": "^4.1.2",
     "clear-console": "^1.1.0",
@@ -74,6 +75,7 @@
     "node-fetch": "^2.6.1",
     "ora": "^5.4.1",
     "path": "^0.12.7",
+    "semver": "^7.3.5",
     "shelljs": "^0.8.4",
     "yoo-hoo": "^1.3.1"
   }
