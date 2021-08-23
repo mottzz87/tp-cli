@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-08-23 15:42:35
+ * @LastEditTime: 2021-08-23 16:04:15
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
@@ -21,12 +21,12 @@ export async function upgrade(force?: boolean): Promise<void> {
         const latest = res.data['dist-tags'].latest;
         const local = version;
         if (semver.lt(local, latest)) {
-          console.log(chalk.yellow(`发现可升级的 ${name} 新版本.`));
-          console.log('当前: ' + chalk.gray(local));
-          console.log('最新: ' + chalk.green(latest));
+          console.log(chalk.yellow(`Found an upgradeable new version of ${name}.`));
+          console.log('current: ' + chalk.gray(local));
+          console.log('latest: ' + chalk.green(latest));
 
           if (force) {
-            loadCmd(`npm i ${name} -g`, `更新 ${name} `);
+            loadCmd(`npm i ${name} -g`, `update ${name} `);
             resolve();
           } else {
             inquirer
@@ -34,12 +34,12 @@ export async function upgrade(force?: boolean): Promise<void> {
                 {
                   type: 'confirm',
                   name: 'yes',
-                  message: '是否立刻升级?',
+                  message: 'Whether to upgrade now?',
                 },
               ])
               .then(function (answer) {
                 if (answer.yes) {
-                  loadCmd(`npm i ${name} -g --force`, `更新${name}`);
+                  loadCmd(`npm i ${name} -g --force`, `update${name}`);
                 }
                 resolve();
               });
@@ -48,7 +48,7 @@ export async function upgrade(force?: boolean): Promise<void> {
           resolve();
         }
       } else {
-        return reject(`脚手架更新检测失败\n`);
+        return reject(`Cli update detection failed\n`);
       }
     });
   });
