@@ -1,6 +1,6 @@
 {
   "name": "vane-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "/dist/index.js",
   "bin": {
@@ -72,7 +72,6 @@
     "ini": "^2.0.0",
     "inquirer": "^8.1.2",
     "log-symbols": "^4.1.0",
-    "node-fetch": "^2.6.1",
     "ora": "^5.4.1",
     "path": "^0.12.7",
     "semver": "^7.3.5",

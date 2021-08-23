@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-23 14:59:04
+ * @LastEditTime: 2021-08-23 15:01:24
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -249,9 +249,9 @@ export async function handleNoAuth(): Promise<void> {
  */
 export function getGitConfig(url: string): unknown {
   const startTime = Date.now();
-  loading.start(chalk.yellow(`加载远程配置中...\n`));
+  loading.start(chalk.yellow(`Loading remote configuration...\n`));
   return axios.get(url).then((data: AxiosResponse) => {
-      loading.succeed(chalk.green(`远程配置加载完成 [耗时${Date.now() - startTime}ms]\n`));
+      loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
       return data;
     });
 }
