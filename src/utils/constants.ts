@@ -56,4 +56,3 @@ export const CONFIG_URL = '';
 
 /** npm地址 */
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
-

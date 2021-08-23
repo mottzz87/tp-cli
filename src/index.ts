@@ -12,7 +12,7 @@ import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL } from './utils/constants';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
-import {upgrade} from './utils/upgrade'
+import { upgrade } from './utils/upgrade';
 import { create } from './commands';
 
 program.version(version).description(description);
@@ -35,7 +35,7 @@ program
     await handleNoAuth();
 
     // 检测升级
-    await upgrade()
+    await upgrade();
 
     //创建
     create(options);

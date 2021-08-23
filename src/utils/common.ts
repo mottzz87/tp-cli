@@ -247,9 +247,9 @@ export function getGitConfig(url: string): unknown {
   const startTime = Date.now();
   loading.start(chalk.yellow(`Loading remote configuration...\n`));
   return axios.get(url).then((data: AxiosResponse) => {
-      loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
-      return data;
-    });
+    loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
+    return data;
+  });
 }
 
 /**
