@@ -48,13 +48,13 @@ program
       console.log(chalk.redBright('🙄 命令输入错误，请参照以下示例命令'));
       console.log('\nExamples:');
       console.log(chalk.gray('# 设置配置数据'));
-      console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
+      console.log(chalk.yellow(`$ vane config set gitlab_url ${GITLAB_URL}`));
       console.log(chalk.gray('# 读取指定配置数据'));
-      console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
+      console.log(chalk.yellow('$ vane config get gitlab_url'));
       console.log(chalk.gray('# 移除指定配置数据'));
-      console.log(chalk.yellow('$ tp-cli config remove gitlab_url'));
+      console.log(chalk.yellow('$ vane config remove gitlab_url'));
       console.log(chalk.gray('# 查看全部配置列表'));
-      console.log(chalk.yellow('$ tp-cli config get'));
+      console.log(chalk.yellow('$ vane config get'));
     } else {
       Rc[action](key, value);
     }
@@ -62,13 +62,13 @@ program
   .on('--help', function () {
     console.log('\nExamples:');
     console.log(chalk.gray('# 设置配置数据'));
-    console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
+    console.log(chalk.yellow(`$ vane config set gitlab_url ${GITLAB_URL}`));
     console.log(chalk.gray('# 读取指定配置数据'));
-    console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
+    console.log(chalk.yellow('$ vane config get gitlab_url'));
     console.log(chalk.gray('# 移除指定配置数据'));
-    console.log(chalk.yellow('$ tp-cli config remove gitlab_url'));
+    console.log(chalk.yellow('$ vane config remove gitlab_url'));
     console.log(chalk.gray('# 查看全部配置列表'));
-    console.log(chalk.yellow('$ tp-cli config list'));
+    console.log(chalk.yellow('$ vane config list'));
   });
 
 program.parse(process.argv);

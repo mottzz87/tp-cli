@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 11:49:10
- * @LastEditTime: 2021-08-22 18:25:46
+ * @LastEditTime: 2021-08-23 10:43:24
  * @LastEditors: Vane
  * @Description: 项目创建
  * @FilePath: \tp-cli\src\commands\create.ts
@@ -9,9 +9,15 @@
 
 import { initPromps, validateProjectNamePromps, gitPromps } from '../utils/promps';
 
+import {upgrade} from '../utils/upgrade'
+
 import { IOptions, downloadTemplate, writePackage, initGit, finishedTips, pingIp } from '../utils/common';
 
 export default async (options: IOptions): Promise<void> => {
+
+  // 检测升级
+  await upgrade()
+
   //初始化交互
   let answers: IOptions = await initPromps(options);
   const { projectName, type, frame, author, description, version } = answers;

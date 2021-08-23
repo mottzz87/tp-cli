@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-22 18:18:10
+ * @LastEditTime: 2021-08-23 14:54:47
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import path from 'path';
 import ora from 'ora';
 import util from 'util';
-import fetch from 'node-fetch';
+import axios, { AxiosResponse } from 'axios';
 import downloadGit from 'download-git-repo';
 import fs from 'fs-extra';
 // import { yo } from 'yoo-hoo';
@@ -83,7 +83,7 @@ export async function getGitlabAuth(): Promise<unknown> {
 }
 
 /**
- * @description ping ip （义幻的gitlab常态性500，故访问前检测ip是否可用）
+ * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
  * @default
  * @param {string} projectName
  * @param {string} api
@@ -226,8 +226,8 @@ export async function handleNoAuth(): Promise<void> {
     console.log(chalk.blueBright('🐶 检测到您未配置gitlab帐号信息，请先配置用户名和密码'));
     console.log(chalk.blueBright('🐶 请执行以下命令，xxx需替换为真实的用户名和密码'));
     console.log('\nExamples:');
-    console.log(chalk.yellow('$ tp-cli config set gitlab_username xxx'));
-    console.log(chalk.yellow('$ tp-cli config set gitlab_password xxx'));
+    console.log(chalk.yellow('$ vane config set gitlab_username xxx'));
+    console.log(chalk.yellow('$ vane config set gitlab_password xxx'));
     exit();
   }
 }
@@ -237,12 +237,10 @@ export async function handleNoAuth(): Promise<void> {
  * @default
  * @param {string} filename json 文件的路径
  */
-export function getGitConfig<T>(url: string): T {
+export function getGitConfig(url: string): unknown {
   const startTime = Date.now();
   loading.start(chalk.yellow(`加载远程配置中...\n`));
-  return fetch(url)
-    .then((res: Obj) => res.json())
-    .then((data: unknown) => {
+  return axios.get(url).then((data: AxiosResponse) => {
       loading.succeed(chalk.green(`远程配置加载完成 [耗时${Date.now() - startTime}ms]\n`));
       return data;
     });
