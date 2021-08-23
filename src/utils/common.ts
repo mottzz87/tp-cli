@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-23 14:54:47
+ * @LastEditTime: 2021-08-23 16:23:32
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -45,10 +45,6 @@ export interface PackageJSON {
   scripts?: {
     [key: string]: string;
   };
-}
-
-interface Obj {
-  json: () => unknown;
 }
 
 export interface JSON {

@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-22 18:39:46
+ * @LastEditTime: 2021-08-23 16:19:23
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -11,6 +11,7 @@ import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL } from './utils/constants';
+import {upgrade} from './utils/upgrade'
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { create } from './commands';
 
@@ -29,6 +30,9 @@ program
   .action(async (options: IOptions) => {
     // 逼格plus
     printTeam('EMT-FE');
+
+    // 检测升级
+    await upgrade()
 
     // 无授权自动退出
     await handleNoAuth();
