@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-08-23 14:55:23
+ * @LastEditTime: 2021-08-23 15:33:21
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
@@ -16,10 +16,12 @@ import {loadCmd} from '../utils/common'
 
 export async function upgrade(force?: boolean): Promise<void> {
   return new Promise((resolve, reject) => {
+    console.log(`${NPM_PACKAGE}${name}`)
     axios.get(`${NPM_PACKAGE}${name}`, {timeout: 8000}).then(res => {
       if (res.status === 200) {
         const latest = res.data['dist-tags'].latest
         const local = version
+        console.log(111111, local, latest)
         if (semver.lt(local, latest)) {
           console.log(chalk.yellow(`发现可升级的 ${name} 新版本.`))
           console.log('当前: ' + chalk.gray(local))

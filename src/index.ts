@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-23 14:57:52
+ * @LastEditTime: 2021-08-23 15:07:40
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -12,6 +12,7 @@ import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL } from './utils/constants';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
+import {upgrade} from './utils/upgrade'
 import { create } from './commands';
 
 program.version(version).description(description);
@@ -32,6 +33,9 @@ program
 
     // 无授权自动退出
     await handleNoAuth();
+
+    // 检测升级
+    await upgrade()
 
     //创建
     create(options);
