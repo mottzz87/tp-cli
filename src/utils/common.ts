@@ -1,7 +1,8 @@
+/* eslint-disable no-useless-escape */
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-23 15:44:25
+ * @LastEditTime: 2021-09-01 16:49:17
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -13,7 +14,7 @@ import util from 'util';
 import axios, { AxiosResponse } from 'axios';
 import downloadGit from 'download-git-repo';
 import fs from 'fs-extra';
-// import { yo } from 'yoo-hoo';
+import { yo } from 'yoo-hoo';
 import { version } from '../../package.json';
 import configData from '../assets/config.json';
 import symbol from 'log-symbols';
@@ -80,9 +81,8 @@ export async function getGitlabAuth(): Promise<unknown> {
 
 /**
  * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
- * @default
- * @param {string} projectName
- * @param {string} api
+ * @default 
+ * @param {string} ip
  */
 export async function pingIp(ip?: string): Promise<void> {
   await loadCmd(`ping ${ip || GITLAB_ADDR}`, 'Connect to remote git repository');
@@ -90,9 +90,7 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
- * @default
- * @param {string} projectName
- * @param {string} api
+ * @default 
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
   const { templates } = configData;
@@ -240,8 +238,8 @@ export async function handleNoAuth(): Promise<void> {
 
 /**
  * @description 获取gitlab配置json
- * @default
- * @param {string} filename json 文件的路径
+ * @default 
+ * @param {string} url
  */
 export function getGitConfig(url: string): unknown {
   const startTime = Date.now();
@@ -271,18 +269,14 @@ export function handleError(err?: unknown, quiet = false): unknown {
  */
 export function printTeam(name?: string): void {
   const [cName] = name?.split('-');
+  yo(name, {color: 'blue', spacing: 2})
   console.log(
     chalk.red(`
-      ==================================================================================
-      ==================================================================================
-      ==                                                                              ==
-      ==                                                                              ==
-      ==                          ${chalk.yellow.bold(`- ${cName}前端团队脚手架 -`)}                               ==
-      ==                                                                              ==
-      ==                                 ${chalk.yellow(`v${version}`)}                                       ==
-      ==                                                                              ==
-      ==================================================================================
-      ==================================================================================
+
+
+                                                        ${chalk.yellow.bold(`———————— ${cName}前端团队脚手架 `)}
+                                          
+                                                                      ${chalk.yellow(`v${version}`)}
     `),
   );
 }
