@@ -274,9 +274,9 @@ export function printTeam(name?: string): void {
     chalk.red(`
 
 
-                                                        ${chalk.yellow.bold(`———————— ${cName}前端团队脚手架 `)}
+                                                            ${chalk.yellow.bold(`—— ${cName}前端团队脚手架 `)}
                                           
-                                                                      ${chalk.yellow(`v${version}`)}
+                                                                       ${chalk.yellow(`v${version}`)}
     `),
   );
 }
