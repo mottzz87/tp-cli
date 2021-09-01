@@ -1,6 +1,6 @@
 {
   "name": "vane-cli",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "/dist/index.js",
   "bin": {
@@ -12,7 +12,8 @@
     "prettier": "prettier --write \"src/**/*.ts\"",
     "commit": "cz",
     "release": "standard-version",
-    "build": "npmrun release && npm run eslint && npm run prettier && rm -rf dist && tsc --build",
+    "build": "npm run release && npm run eslint && npm run prettier && rm -rf dist && tsc --build",
+    "publish": "npm run build && sh publish.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
