@@ -1,52 +1,55 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-08-23 14:55:23
+ * @LastEditTime: 2021-09-01 16:54:18
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
  */
-import chalk from 'chalk'
-import inquirer from "inquirer"
-import semver from "semver"
-import axios from 'axios'
-import { NPM_PACKAGE } from '../utils/constants'
-import { name, version } from '../../package.json'
-import {loadCmd} from '../utils/common'
+import chalk from 'chalk';
+import inquirer from 'inquirer';
+import semver from 'semver';
+import axios from 'axios';
+import { NPM_PACKAGE } from '../utils/constants';
+import { name, version } from '../../package.json';
+import { loadCmd } from '../utils/common';
 
 export async function upgrade(force?: boolean): Promise<void> {
   return new Promise((resolve, reject) => {
-    axios.get(`${NPM_PACKAGE}${name}`, {timeout: 8000}).then(res => {
+    axios.get(`${NPM_PACKAGE}${name}`, { timeout: 8000 }).then((res) => {
       if (res.status === 200) {
-        const latest = res.data['dist-tags'].latest
-        const local = version
+        const latest = res.data['dist-tags'].latest;
+        const local = version;
         if (semver.lt(local, latest)) {
-          console.log(chalk.yellow(`发现可升级的 ${name} 新版本.`))
-          console.log('当前: ' + chalk.gray(local))
-          console.log('最新: ' + chalk.green(latest))
-  
+          console.log(chalk.yellow(`Found an upgradeable new version of ${name}.`));
+          console.log('current: ' + chalk.gray(local));
+          console.log('latest: ' + chalk.green(latest));
+
           if (force) {
-              loadCmd(`npm i ${name} -g`, `更新 ${name} `)
-              resolve()
+            loadCmd(`npm i ${name} -g`, `update ${name} `);
+            resolve();
           } else {
-            inquirer.prompt([{
-                type: "confirm",
-                name: 'yes',
-                message: "是否立刻升级?"
-            }]).then(function(answer) {
-              if (answer.yes) {
-                loadCmd(`npm i ${name} -g --force`, `更新${name}`)
-              } 
-              resolve()
-            })
+            inquirer
+              .prompt([
+                {
+                  type: 'confirm',
+                  name: 'yes',
+                  message: 'Whether to upgrade now?',
+                },
+              ])
+              .then(function (answer) {
+                if (answer.yes) {
+                  loadCmd(`npm i ${name} -g --force`, `update${name}`);
+                }
+                resolve();
+              });
           }
         } else {
-          resolve()
+          resolve();
         }
       } else {
-        return reject(`脚手架更新检测失败\n`);
+        return reject(`Cli update detection failed\n`);
       }
-    })
-    
-  })
+    });
+  });
 }

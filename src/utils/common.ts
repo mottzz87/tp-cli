@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-08-23 16:23:32
+ * @LastEditTime: 2021-09-01 16:52:50
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -80,9 +80,8 @@ export async function getGitlabAuth(): Promise<unknown> {
 
 /**
  * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
- * @default
- * @param {string} projectName
- * @param {string} api
+ * @default 
+ * @param {string} ip
  */
 export async function pingIp(ip?: string): Promise<void> {
   await loadCmd(`ping ${ip || GITLAB_ADDR}`, 'git远程仓库连接');
@@ -90,9 +89,8 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
- * @default
- * @param {string} projectName
- * @param {string} api
+ * @default 
+ * @param {IOptions} options
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
   const { templates } = configData;

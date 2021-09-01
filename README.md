@@ -1,19 +1,19 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-08-22 20:46:31
+ * @LastEditTime: 2021-09-01 16:51:21
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
 -->
 
-# tp-cli（因名称冲突，已改为 vane-cli）
+# tp-cli（因名称易冲突，已更名为 vane-cli）
 
 # 介绍
 
 前端通用脚手架
 
-# 安装
+# 安装使用
 
 1. 一键安装
 
@@ -37,6 +37,22 @@ vane-cli create
 vane --version
 1.0.0
 ```
+
+# 发布
+
+```bash
+# 设置镜像源
+# 淘宝镜像 https://registry.npm.taobao.org
+npm config set registry https://registry.npmjs.org
+
+npm login
+
+sh publish.sh
+```
+
+# 调试
+
+此脚本已支持本地调试
 
 ### 代码质量
 
