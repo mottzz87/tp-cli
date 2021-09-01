@@ -49,7 +49,7 @@ npm config set registry https://registry.npmjs.org
 
 npm login
 
-yarn publish
+npm run pub
 ```
 
 # 调试
