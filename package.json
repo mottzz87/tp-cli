@@ -13,7 +13,7 @@
     "commit": "cz",
     "release": "standard-version",
     "build": "npm run release && npm run eslint && npm run prettier && rm -rf dist && tsc --build",
-    "publish": "npm run build && npm run release && sh publish.sh",
+    "publish": "npm run build  && sh publish.sh && npm run release",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
