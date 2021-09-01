@@ -1,7 +1,7 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-09-01 16:15:29
+ * @LastEditTime: 2021-09-01 17:32:22
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
@@ -47,7 +47,7 @@ npm config set registry https://registry.npmjs.org
 
 npm login
 
-sh publish.sh
+yarn publish
 ```
 
 # 调试
