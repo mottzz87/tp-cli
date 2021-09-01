@@ -11,7 +11,9 @@
     "eslint": "eslint --fix src --ext .ts --max-warnings=0",
     "prettier": "prettier --write \"src/**/*.ts\"",
     "commit": "cz",
+    "release": "standard-version",
     "build": "npm run eslint && npm run prettier && rm -rf dist && tsc --build",
+    "publish": "npm run build  && npm run release && sh publish.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
@@ -36,6 +38,10 @@
   ],
   "author": "Vane",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mottzz87/tp-cli.git"
+  },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
@@ -44,6 +50,7 @@
     "eslint": "^7.32.0",
     "husky": "^7.0.1",
     "prettier": "^2.3.2",
+    "standard-version": "^9.3.1",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.3.5"
   },
