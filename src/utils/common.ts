@@ -81,7 +81,7 @@ export async function getGitlabAuth(): Promise<unknown> {
 
 /**
  * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
- * @default 
+ * @default
  * @param {string} ip
  */
 export async function pingIp(ip?: string): Promise<void> {
@@ -90,7 +90,7 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
- * @default 
+ * @default
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
   const { templates } = configData;
@@ -238,7 +238,7 @@ export async function handleNoAuth(): Promise<void> {
 
 /**
  * @description 获取gitlab配置json
- * @default 
+ * @default
  * @param {string} url
  */
 export function getGitConfig(url: string): unknown {
@@ -269,7 +269,7 @@ export function handleError(err?: unknown, quiet = false): unknown {
  */
 export function printTeam(name?: string): void {
   const [cName] = name?.split('-');
-  yo(name, {color: 'blue', spacing: 2})
+  yo(name, { color: 'blue', spacing: 2 });
   console.log(
     chalk.red(`
 

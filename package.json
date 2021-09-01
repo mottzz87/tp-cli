@@ -12,7 +12,7 @@
     "prettier": "prettier --write \"src/**/*.ts\"",
     "commit": "cz",
     "release": "standard-version",
-    "build": "npm run eslint && npm run prettier && rm -rf dist && tsc --build",
+    "build": "npmrun release && npm run eslint && npm run prettier && rm -rf dist && tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
