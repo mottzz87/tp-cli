@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-09-01 16:49:17
+ * @LastEditTime: 2021-09-07 13:09:21
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -81,7 +81,7 @@ export async function getGitlabAuth(): Promise<unknown> {
 
 /**
  * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
- * @default
+  
  * @param {string} ip
  */
 export async function pingIp(ip?: string): Promise<void> {
@@ -90,7 +90,7 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
- * @default
+  
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
   const { templates } = configData;
@@ -118,7 +118,6 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
 
 /**
  * @description 写入信息
- * @default
  * @param {string} fileName
  * @param {any} obj
  */
@@ -166,7 +165,6 @@ export async function loadCmd(cmd: string, text: string): Promise<void> {
 
 /**
  * @description 初始化git
- * @default
  * @param {IOptions} answer
  */
 export async function initGit(answer: IOptions): Promise<void> {
@@ -176,7 +174,6 @@ export async function initGit(answer: IOptions): Promise<void> {
 
 /**
  * @description 初始化本地分支
- * @default
  * @param {IOptions} answer
  */
 export async function initGitLocal(answer: IOptions): Promise<void> {
@@ -194,7 +191,6 @@ export async function initGitLocal(answer: IOptions): Promise<void> {
 
 /**
  * @description 初始化远端分支
- * @default
  * @param {IOptions} answer
  */
 export async function initGitRemote(answer: IOptions): Promise<void> {
@@ -238,7 +234,6 @@ export async function handleNoAuth(): Promise<void> {
 
 /**
  * @description 获取gitlab配置json
- * @default
  * @param {string} url
  */
 export function getGitConfig(url: string): unknown {
@@ -264,7 +259,6 @@ export function handleError(err?: unknown, quiet = false): unknown {
 
 /**
  * @description 打印文案
- * @default
  * @param {string} name
  */
 export function printTeam(name?: string): void {
@@ -283,7 +277,7 @@ export function printTeam(name?: string): void {
 
 /**
  * @description The End
- * @default
+  
  * @param {string} projectName
  */
 export function finishedTips(projectName?: string): void {
