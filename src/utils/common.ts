@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-09-01 16:52:50
+ * @LastEditTime: 2021-09-07 17:19:31
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -71,7 +71,7 @@ const loading = ora();
 export async function getGitlabAuth(): Promise<unknown> {
   const username = await Rc.get(KEY_GITLAB_USERNAME);
   const password = await Rc.get(KEY_GITLAB_PASSWORD);
-  if (username || password) {
+  if (username && password) {
     return { username, password };
   } else {
     return;

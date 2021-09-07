@@ -1,13 +1,13 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-08-23 13:58:03
+ * @LastEditTime: 2021-09-07 17:22:14
  * @LastEditors: Vane
  * @Description: 全局变量
  * @FilePath: \tp-cli\src\utils\constants.ts
  */
 
-import { version } from '../../package.json';
+import { version, name } from '../../package.json';
 
 /** 用户根目录 */
 export const HOME = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
@@ -17,6 +17,9 @@ export const COMMAND_CREATE = 'create';
 
 /** 命令-配置 */
 export const COMMAND_CONFIG = 'config';
+
+/** 命令-执行别名 */
+export const COMMAND_ALIAS = name;
 
 /** 脚手架系统目录 */
 export const DIR = '.tpcli';
@@ -54,6 +57,8 @@ export const GITLAB_TOKEN = '';
 /** 远程配置地址 */
 export const CONFIG_URL = '';
 
-/** npm地址 */
+/** npm镜像地址 */
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
 
+/** 团队log名称 */
+export const TEAM_LOGO = 'EMT-FE'
