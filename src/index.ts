@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-08-23 15:07:40
+ * @LastEditTime: 2021-09-07 11:31:28
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -10,7 +10,7 @@ import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
-import { GITLAB_URL } from './utils/constants';
+import { GITLAB_URL, COMMAND_ALIAS } from './utils/constants';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { upgrade } from './utils/upgrade';
 import { create } from './commands';
@@ -52,13 +52,13 @@ program
       console.log(chalk.redBright('🙄 Command input error, please refer to the following example command'));
       console.log('\nExamples:');
       console.log(chalk.gray('# Set configuration data'));
-      console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set gitlab_url ${GITLAB_URL}`));
       console.log(chalk.gray('# Read the specified configuration data'));
-      console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get gitlab_url`));
       console.log(chalk.gray('# Remove specified configuration data'));
-      console.log(chalk.yellow('$ tp-cli config remove gitlab_url'));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
       console.log(chalk.gray('# View all configurations'));
-      console.log(chalk.yellow('$ tp-cli config get'));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get`));
     } else {
       Rc[action](key, value);
     }
@@ -66,13 +66,13 @@ program
   .on('--help', function () {
     console.log('\nExamples:');
     console.log(chalk.gray('# Set configuration data'));
-    console.log(chalk.yellow(`$ tp-cli config set gitlab_url ${GITLAB_URL}`));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set gitlab_url ${GITLAB_URL}`));
     console.log(chalk.gray('# Read the specified configuration data'));
-    console.log(chalk.yellow('$ tp-cli config get gitlab_url'));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get gitlab_url`));
     console.log(chalk.gray('# Remove specified configuration data'));
-    console.log(chalk.yellow('$ tp-cli config remove gitlab_url'));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
     console.log(chalk.gray('# View all configurations'));
-    console.log(chalk.yellow('$ tp-cli config list'));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config list`));
   });
 
 program.parse(process.argv);
