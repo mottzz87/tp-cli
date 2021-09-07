@@ -1,7 +1,7 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-09-01 17:55:20
+ * @LastEditTime: 2021-09-07 12:43:33
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
@@ -44,7 +44,7 @@ vane --version
 # 设置镜像源
 ## 淘宝镜像 
 ## npm config set registry https://registry.npm.taobao.org/
-
+# 目前发布在npm官方仓库
 npm config set registry https://registry.npmjs.org
 
 npm login

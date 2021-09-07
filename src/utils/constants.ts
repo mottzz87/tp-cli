@@ -9,8 +9,6 @@
 
 import { version, name } from '../../package.json';
 
-
-
 /** 用户根目录 */
 export const HOME = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
 
@@ -21,7 +19,7 @@ export const COMMAND_CREATE = 'create';
 export const COMMAND_CONFIG = 'config';
 
 /** 命令-执行别名 */
-export const COMMAND_ALIAS = name
+export const COMMAND_ALIAS = name;
 
 /** 脚手架系统目录 */
 export const DIR = '.tpcli';
