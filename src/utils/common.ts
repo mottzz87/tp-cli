@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-09-07 17:34:40
+ * @LastEditTime: 2021-09-07 17:37:22
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -98,7 +98,7 @@ export async function downloadTemplate(options: IOptions): Promise<void> {
   const { url } = templates[`${type}_${frame}`];
   const api = `direct:${url}`;
   if (!url) {
-    loading.fail(chalk.red(`  >>>> No [${type}]_[${frame}] project template`));
+    loading.fail(chalk.red(`  >>>> No [${type}]+[${frame}] project template`));
     return;
   }
 
