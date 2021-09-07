@@ -1,10 +1,10 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-09-07 11:38:45
+ * @LastEditTime: 2021-09-07 13:27:12
  * @LastEditors: Vane
  * @Description: 全局变量
- * @FilePath: \tp-cli\src\utils\constants.ts
+ * @FilePath: \tp-cli\src\config\constants.ts
  */
 
 import { version, name } from '../../package.json';
@@ -57,5 +57,8 @@ export const GITLAB_TOKEN = '';
 /** 远程配置地址 */
 export const CONFIG_URL = '';
 
-/** npm地址 */
+/** npm镜像地址 */
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
+
+/** 团队log名称 */
+export const TEAM_LOGO = 'EMT-FE'

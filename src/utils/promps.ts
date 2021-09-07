@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 17:55:19
- * @LastEditTime: 2021-08-22 19:06:43
+ * @LastEditTime: 2021-09-07 13:25:02
  * @LastEditors: Vane
  * @Description: 脚手架交互
  * @FilePath: \tp-cli\src\utils\promps.ts
@@ -12,7 +12,7 @@ import path from 'path';
 import ora from 'ora';
 import fs from 'fs-extra';
 import { IOptions } from './common';
-import { GITLAB_ADDR } from './constants';
+import { GITLAB_ADDR } from '../config';
 
 import configData from '../assets/config.json';
 

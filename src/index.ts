@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-09-07 11:31:28
+ * @LastEditTime: 2021-09-07 13:24:50
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -10,7 +10,7 @@ import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
-import { GITLAB_URL, COMMAND_ALIAS } from './utils/constants';
+import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { upgrade } from './utils/upgrade';
 import { create } from './commands';
@@ -29,7 +29,7 @@ program
   .option('-f, --force', 'If the directory exists, it will be overwritten directly')
   .action(async (options: IOptions) => {
     // 逼格plus
-    printTeam('EMT-FE');
+    printTeam(TEAM_LOGO);
 
     // 无授权自动退出
     await handleNoAuth();
