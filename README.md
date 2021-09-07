@@ -1,7 +1,7 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-09-07 12:43:33
+ * @LastEditTime: 2021-09-07 13:40:33
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
@@ -12,6 +12,8 @@
 # 介绍
 
 前端通用脚手架
+
+通过该脚手架，你将拥有一支强大的基础项目模板军队，伴你在业务的战场中冲锋陷阵。
 
 # 安装使用
 
@@ -59,7 +61,3 @@ npm run pub
 ### 代码质量
 
 ESLint + prettier 配合 husky 和 lint-staged，在代码提交时自动校验和修复代码格式
-
-# 技能
-
-通过该脚手架，你将拥有一支强大的基础项目模板军队，伴你在业务的战场中冲锋陷阵。
