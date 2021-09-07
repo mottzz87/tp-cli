@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-09-07 13:25:38
+ * @LastEditTime: 2021-09-07 17:28:33
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -19,7 +19,7 @@ import { version } from '../../package.json';
 import configData from '../assets/config.json';
 import symbol from 'log-symbols';
 import { exit } from 'process';
-import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD, GITLAB_ADDR } from '../config';
+import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD, GITLAB_ADDR } from '../config/constants';
 import Rc from './rc';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
