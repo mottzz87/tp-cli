@@ -1,7 +1,7 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-09-07 17:59:32
+ * @LastEditTime: 2021-09-07 18:00:54
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
@@ -60,10 +60,6 @@ npm run pub
 
 此脚本已支持本地调试
 
-### 代码质量
-
-ESLint + prettier 配合 husky 和 lint-staged，在代码提交时自动校验和修复代码格式
-
 # 项目结构
 
 ```bash
@@ -96,3 +92,7 @@ ESLint + prettier 配合 husky 和 lint-staged，在代码提交时自动校验�
 
 
 ```
+
+# 代码质量
+
+ESLint + prettier 配合 husky 和 lint-staged，在代码提交时自动校验和修复代码格式
