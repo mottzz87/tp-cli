@@ -1087,6 +1087,21 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+cz-conventional-changelog-zh@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/cz-conventional-changelog-zh/-/cz-conventional-changelog-zh-0.0.2.tgz#244da59172f50470b514cc20f1fd88ad7968b49e"
+  integrity sha512-rXy2HiG/0M7xChuodAN1L9qHDWTBInGTljaE59AlyqrXQAv0srg147vjep5CO7mGtxVYJQJi9TVP5KVZMWxDqQ==
+  dependencies:
+    chalk "^2.4.1"
+    commitizen "^4.0.3"
+    conventional-commit-types "^3.0.0"
+    lodash.assign "^4.2.0"
+    lodash.map "^4.5.1"
+    longest "^2.0.1"
+    word-wrap "^1.0.3"
+  optionalDependencies:
+    "@commitlint/load" ">6.1.1"
+
 cz-conventional-changelog@3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/cz-conventional-changelog/-/cz-conventional-changelog-3.2.0.tgz"
@@ -2483,6 +2498,11 @@ locate-path@^6.0.0:
   integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
   dependencies:
     p-locate "^5.0.0"
+
+lodash.assign@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
+  integrity sha1-DZnzzNem0mHRm9rrkkUAXShYCOc=
 
 lodash.clonedeep@^4.5.0:
   version "4.5.0"

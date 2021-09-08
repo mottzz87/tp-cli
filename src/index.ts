@@ -10,7 +10,7 @@ import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
-import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants'
+import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { upgrade } from './utils/upgrade';
 import { create } from './commands';

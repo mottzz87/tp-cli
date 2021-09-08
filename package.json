@@ -65,6 +65,7 @@
     "chalk": "^4.1.2",
     "clear-console": "^1.1.0",
     "commander": "^8.1.0",
+    "cz-conventional-changelog-zh": "^0.0.2",
     "download-git-repo": "^3.0.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^10.0.0",
