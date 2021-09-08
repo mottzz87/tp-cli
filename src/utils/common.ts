@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 21:57:47
- * @LastEditTime: 2021-09-07 17:37:22
+ * @LastEditTime: 2021-09-08 11:12:26
  * @LastEditors: Vane
  * @Description: 公共函数
  * @FilePath: \tp-cli\src\utils\common.ts
@@ -16,7 +16,7 @@ import downloadGit from 'download-git-repo';
 import fs from 'fs-extra';
 import { yo } from 'yoo-hoo';
 import { version } from '../../package.json';
-import configData from '../assets/config.json';
+import memory from './memory'
 import symbol from 'log-symbols';
 import { exit } from 'process';
 import { KEY_GITLAB_USERNAME, KEY_GITLAB_PASSWORD, GITLAB_ADDR } from '../config/constants';
@@ -59,6 +59,20 @@ export interface IAuth {
   token?: string;
 }
 
+export interface IGitConfig {
+  supports: {
+    type: unknown[],
+    frame: unknown[]
+  },
+  template: {
+    [key: string]: {
+      url: string,
+      desc?: string,
+      tags?: unknown[]
+    }
+  }
+}
+
 // 当前命令行选择的目录
 const cwd = process.cwd();
 
@@ -90,9 +104,10 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
-  
+ * @return {*}
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
+  const configData = await memory.get('configData')
   const { templates } = configData;
   const { projectName, type, frame } = options;
   const { url } = templates[`${type}_${frame}`];
@@ -236,13 +251,19 @@ export async function handleNoAuth(): Promise<void> {
  * @description 获取gitlab配置json
  * @param {string} url
  */
-export function getGitConfig(url: string): unknown {
+export function getGitConfig(url: string): Promise<IGitConfig> {
   const startTime = Date.now();
   loading.start(chalk.yellow(`Loading remote configuration...\n`));
-  return axios.get(url).then((data: AxiosResponse) => {
-    loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
-    return data;
-  });
+  return new Promise((resolve, reject) => {
+    axios.get(url).then((data: AxiosResponse) => {
+      if(data.status === 200){
+        loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
+        resolve(data.data);
+      }else{
+        return reject(`Failed to get json configuration file`)
+      }
+    });
+  })
 }
 
 /**

@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-20 17:55:19
- * @LastEditTime: 2021-09-07 17:28:30
+ * @LastEditTime: 2021-09-08 11:11:33
  * @LastEditors: Vane
  * @Description: 脚手架交互
  * @FilePath: \tp-cli\src\utils\promps.ts
@@ -11,10 +11,9 @@ import inquirer from 'inquirer';
 import path from 'path';
 import ora from 'ora';
 import fs from 'fs-extra';
-import { IOptions } from './common';
-import { GITLAB_ADDR } from '../config/constants';
-
-import configData from '../assets/config.json';
+import memory from './memory';
+import { getGitConfig, IOptions } from './common';
+import { GITLAB_ADDR, GIT_CONFIG_URL } from '../config/constants';
 
 // 当前命令行选择的目录
 const cwd = process.cwd();
@@ -27,6 +26,8 @@ const loading = ora();
  * @return {*}
  */
 export async function initPromps(options: IOptions): Promise<IOptions> {
+  const configData = await getGitConfig(GIT_CONFIG_URL)
+  await memory.set('configData', configData)
   const {
     supports: { type: supportType, frame: supportFrame },
   } = configData;

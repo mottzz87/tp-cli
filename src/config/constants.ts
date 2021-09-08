@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-09-07 13:27:12
+ * @LastEditTime: 2021-09-08 10:32:43
  * @LastEditors: Vane
  * @Description: 全局变量
  * @FilePath: \tp-cli\src\config\constants.ts
@@ -50,6 +50,9 @@ export const GITLAB_ADDR = 'git.mobimedical.cn';
 
 /** gitlab默认url */
 export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`;
+
+/** git配置url（同./assets/config） */
+export const GIT_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json'
 
 /** gitlab默认token */
 export const GITLAB_TOKEN = '';
