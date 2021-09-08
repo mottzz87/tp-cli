@@ -1,0 +1,23 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+commit_regex='^Merge.+|(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|types)(\(.+\))?: .{1,50}'
+
+
+if ! grep -iqE "$commit_regex" "$1"; then
+
+echo
+echo "commit信息格式错误！！"
+
+echo "格式应为：[Type]: [Summary]"
+
+echo "Type可选值为Merge|feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|types"
+
+echo "注意中间的空格"
+
+echo "示例：git commit -m \"feat: add something feat\""
+
+echo
+exit 1
+
+fi
