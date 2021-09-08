@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 19:06:06
- * @LastEditTime: 2021-09-07 17:28:31
+ * @LastEditTime: 2021-09-08 13:46:26
  * @LastEditors: Vane
  * @Description: 入口
  * @FilePath: \tp-cli\src\index.ts
@@ -10,7 +10,7 @@ import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
-import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants';
+import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants'
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { upgrade } from './utils/upgrade';
 import { create } from './commands';
