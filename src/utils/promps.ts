@@ -13,7 +13,7 @@ import ora from 'ora';
 import fs from 'fs-extra';
 import memory from './memory';
 import { getGitConfig, IOptions } from './common';
-import { GITLAB_ADDR, GIT_CONFIG_URL } from '../config/constants';
+import { GITLAB_ADDR, PRO_CONFIG_URL } from '../config/constants';
 
 // 当前命令行选择的目录
 const cwd = process.cwd();
@@ -26,7 +26,7 @@ const loading = ora();
  * @return {*}
  */
 export async function initPromps(options: IOptions): Promise<IOptions> {
-  const configData = await getGitConfig(GIT_CONFIG_URL)
+  const configData = await getGitConfig(PRO_CONFIG_URL)
   await memory.set('configData', configData)
   const {
     supports: { type: supportType, frame: supportFrame },
