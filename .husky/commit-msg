@@ -6,15 +6,15 @@ commit_regex='^Merge.+|(feat|fix|docs|style|refactor|perf|test|build|ci|chore|re
 
 if ! grep -iqE "$commit_regex" "$1"; then
 
-echo "\n 不合法的 commit 消息提交格式，请使用正确的格式：\n [Type]: [Summary]"
-
+echo -e "\033[31m不合法的 commit 消息提交格式，请使用正确的格式: [Type]: [Summary] \033[0m"
 echo "Type可选值为Merge|feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|types"
 
-echo "注意中间的空格"
+echo
+echo -e "\033[31m 注意中间的空格 \033[0m"
+echo -e "\033[32m >>> 示例：yarn commit \033[33m or \033[0m \033[32mgit commit -m \"feat: add something feat\" \033[0m"
+echo
 
-echo "示例：git commit -m \"feat: add something feat\""
-
-echo "\n详情请查看 git commit 提交规范：https://github.com/woai3c/Front-end-articles/blob/master/git%20commit%20style.md"
+echo -e "详情请查看 git commit 提交规范:\033[34m https://github.com/woai3c/Front-end-articles/blob/master/git%20commit%20style.md \033[0m"
 
 exit 1
 
