@@ -1,7 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-dirname --help
-git add .
 echo "pre-commit"
 npx lint-staged
+git add .
+
