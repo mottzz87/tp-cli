@@ -49,10 +49,10 @@ export const KEY_GITLAB_PASSWORD = 'gitlab_password';
 export const GITLAB_ADDR = 'git.mobimedical.cn';
 
 /** gitlab默认url */
-export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`
+export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`;
 
 /** 项目远程配置url */
-export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json'
+export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json';
 
 /** gitlab默认token */
 export const GITLAB_TOKEN = '';
@@ -61,4 +61,4 @@ export const GITLAB_TOKEN = '';
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
 
 /** 团队log名称 */
-export const TEAM_LOGO = 'EMT-FE'
+export const TEAM_LOGO = 'EMT-FE';
