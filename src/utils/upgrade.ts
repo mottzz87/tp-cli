@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-09-01 16:54:18
+ * @LastEditTime: 2021-09-08 13:07:35
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import semver from 'semver';
 import axios from 'axios';
-import { NPM_PACKAGE } from '../utils/constants';
+import { NPM_PACKAGE } from '../config/constants';
 import { name, version } from '../../package.json';
 import { loadCmd } from '../utils/common';
 

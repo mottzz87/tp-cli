@@ -2,7 +2,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 22:22:23
- * @LastEditTime: 2021-08-20 21:20:07
+ * @LastEditTime: 2021-09-08 13:06:53
  * @LastEditors: Vane
  * @Description: 系统配置本地存储（${HOME}/.tpclirc）
  * @FilePath: \tp-cli\src\utils\rc.ts
@@ -11,7 +11,7 @@ import { decode, encode } from 'ini';
 import { promisify } from 'util';
 import chalk from 'chalk';
 import fs from 'fs';
-import { RC } from './constants';
+import { RC } from '../config/constants';
 import ora from 'ora';
 import { handleError } from './common';
 

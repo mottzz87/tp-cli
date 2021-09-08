@@ -1,10 +1,10 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-19 20:51:36
- * @LastEditTime: 2021-09-08 12:58:52
+ * @LastEditTime: 2021-09-08 13:08:43
  * @LastEditors: Vane
  * @Description: 全局变量
- * @FilePath: \tp-cli\src\utils\constants.ts
+ * @FilePath: \tp-cli\src\config\constants.ts
  */
 
 import { version, name } from '../../package.json';
@@ -54,8 +54,8 @@ export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`;
 /** gitlab默认token */
 export const GITLAB_TOKEN = '';
 
-/** git远程配置url */
-export const GIT_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json'
+/** 项目远程配置url */
+export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json'
 
 /** npm镜像地址 */
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
