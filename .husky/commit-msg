@@ -6,10 +6,7 @@ commit_regex='^Merge.+|(feat|fix|docs|style|refactor|perf|test|build|ci|chore|re
 
 if ! grep -iqE "$commit_regex" "$1"; then
 
-echo
-echo "commit信息格式错误！！"
-
-echo "格式应为：[Type]: [Summary]"
+echo "\n 不合法的 commit 消息提交格式，请使用正确的格式：\n [Type]: [Summary]"
 
 echo "Type可选值为Merge|feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|types"
 
@@ -17,7 +14,8 @@ echo "注意中间的空格"
 
 echo "示例：git commit -m \"feat: add something feat\""
 
-echo
+echo "\n详情请查看 git commit 提交规范：https://github.com/woai3c/Front-end-articles/blob/master/git%20commit%20style.md"
+
 exit 1
 
 fi

@@ -1,7 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "pre-commit"
+# 自动格式化
 npx lint-staged
-git add .
+
+# 获取上面脚本的退出码
+exitCode="$?"
+exit $exitCode
 
