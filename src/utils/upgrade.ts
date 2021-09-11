@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-09-07 17:28:41
+ * @LastEditTime: 2021-09-11 17:20:20
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
@@ -39,7 +39,7 @@ export async function upgrade(force?: boolean): Promise<void> {
               ])
               .then(function (answer) {
                 if (answer.yes) {
-                  loadCmd(`npm i ${name} -g --force`, `update${name}`);
+                  loadCmd(`npm i ${name} -g --force`, `update ${name}`);
                 }
                 resolve();
               });
