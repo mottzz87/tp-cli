@@ -1,7 +1,7 @@
 /*
  * @Author: Vane
  * @Date: 2021-08-23 10:28:05
- * @LastEditTime: 2021-09-07 17:28:41
+ * @LastEditTime: 2021-09-11 17:25:23
  * @LastEditors: Vane
  * @Description: 升级脚手架
  * @FilePath: \tp-cli\src\utils\upgrade.ts
@@ -16,7 +16,7 @@ import { loadCmd } from '../utils/common';
 
 export async function upgrade(force?: boolean): Promise<void> {
   return new Promise((resolve, reject) => {
-    axios.get(`${NPM_PACKAGE}${name}`, { timeout: 8000 }).then((res) => {
+    axios.get(`${NPM_PACKAGE}${name}`, { timeout: 8000 }).then(async (res) => {
       if (res.status === 200) {
         const latest = res.data['dist-tags'].latest;
         const local = version;
@@ -26,7 +26,7 @@ export async function upgrade(force?: boolean): Promise<void> {
           console.log('latest: ' + chalk.green(latest));
 
           if (force) {
-            loadCmd(`npm i ${name} -g`, `update ${name} `);
+            await loadCmd(`npm i ${name} -g`, `update ${name} `);
             resolve();
           } else {
             inquirer
@@ -37,9 +37,9 @@ export async function upgrade(force?: boolean): Promise<void> {
                   message: 'Whether to upgrade now?',
                 },
               ])
-              .then(function (answer) {
+              .then(async function (answer) {
                 if (answer.yes) {
-                  loadCmd(`npm i ${name} -g --force`, `update${name}`);
+                  await loadCmd(`npm i ${name} -g --force`, `update ${name}`);
                 }
                 resolve();
               });
