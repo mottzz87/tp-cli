@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mottzz87/tp-cli/compare/v1.1.0...v1.3.0) (2021-09-16)
+
+
+### Features
+
+* t ([1f4f476](https://github.com/mottzz87/tp-cli/commit/1f4f4762b827486b4a4c4b5bd42c076eb08a0125))
+
 ## [1.2.0](https://github.com/mottzz87/tp-cli/compare/v1.0.52...v1.2.0) (2021-09-11)
 
 
