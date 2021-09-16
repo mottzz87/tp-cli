@@ -1,7 +1,7 @@
 <!--
  * @Author: Vane
  * @Date: 2021-08-19 19:08:17
- * @LastEditTime: 2021-09-07 18:00:54
+ * @LastEditTime: 2021-09-16 13:50:51
  * @LastEditors: Vane
  * @Description:
  * @FilePath: \tp-cli\README.md
@@ -60,6 +60,8 @@ npm run pub
 
 此脚本已支持本地调试
 
+# 项目流程
+✨✨✨[我是流程图](https://gitee.com/vaned/static/raw/master/img/cli/flowchart.png)
 # 项目结构
 
 ```bash
