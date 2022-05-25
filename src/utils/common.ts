@@ -60,16 +60,16 @@ export interface IAuth {
 
 export interface IGitConfig {
   supports: {
-    type: unknown[],
-    frame: unknown[]
-  },
+    type: unknown[];
+    frame: unknown[];
+  };
   template: {
     [key: string]: {
-      url: string,
-      desc?: string,
-      tags?: unknown[]
-    }
-  }
+      url: string;
+      desc?: string;
+      tags?: unknown[];
+    };
+  };
 }
 
 // 当前命令行选择的目录
@@ -94,7 +94,7 @@ export async function getGitlabAuth(): Promise<unknown> {
 
 /**
  * @description ping ip （义幻的gitlab很容易500，故访问前检测ip是否可用）
- * @default 
+ * @default
  * @param {string} ip
  */
 export async function pingIp(ip?: string): Promise<void> {
@@ -103,11 +103,11 @@ export async function pingIp(ip?: string): Promise<void> {
 
 /**
  * @description 项目模板下载
- * @default 
+ * @default
  * @param {IOptions} options
  */
 export async function downloadTemplate(options: IOptions): Promise<void> {
-  const configData = await memory.get('configData')
+  const configData = await memory.get('configData');
   const { templates } = configData;
   const { projectName, type, frame } = options;
   const { url } = templates[`${type}_${frame}`];
@@ -251,14 +251,14 @@ export function getGitConfig(url: string): Promise<IGitConfig> {
   loading.start(chalk.yellow(`Loading remote configuration...\n`));
   return new Promise((resolve, reject) => {
     axios.get(url).then((data: AxiosResponse) => {
-      if(data.status === 200){
+      if (data.status === 200) {
         loading.succeed(chalk.green(`Remote configuration loading is complete [Takes ${Date.now() - startTime}ms]\n`));
         resolve(data.data);
-      }else{
-        return reject(`Failed to get json configuration file`)
+      } else {
+        return reject(`Failed to get json configuration file`);
       }
     });
-  })
+  });
 }
 
 /**

@@ -12,7 +12,6 @@ import { initPromps, validateProjectNamePromps, gitPromps } from '../utils/promp
 import { IOptions, downloadTemplate, writePackage, initGit, finishedTips, pingIp } from '../utils/common';
 
 export default async (options: IOptions): Promise<void> => {
-
   //初始化交互
   let answers: IOptions = await initPromps(options);
   const { projectName, type, frame, author, description, version } = answers;

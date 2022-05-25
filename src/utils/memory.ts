@@ -7,14 +7,14 @@
  * @FilePath: \tp-cli\src\utils\memory.ts
  */
 
-export = function () {
+export = (function () {
   const cache = {};
   return {
-    get: function (key: string) { 
-      return cache[key]; 
+    get: function (key: string) {
+      return cache[key];
     },
-    set: async function (key: string, val: unknown) { 
-      cache[key] = val; 
-    }
-  }
-}();
+    set: async function (key: string, val: unknown) {
+      cache[key] = val;
+    },
+  };
+})();

@@ -11,7 +11,7 @@ import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
 import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants';
-import {upgrade} from './utils/upgrade'
+import { upgrade } from './utils/upgrade';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { create } from './commands';
 
@@ -32,7 +32,7 @@ program
     printTeam(TEAM_LOGO);
 
     // 检测升级
-    await upgrade()
+    await upgrade();
 
     // 无授权自动退出
     await handleNoAuth();
@@ -59,7 +59,6 @@ program
       console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
       console.log(chalk.gray('# View all configurations'));
       console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get`));
-
     } else {
       Rc[action](key, value);
     }
@@ -74,7 +73,6 @@ program
     console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
     console.log(chalk.gray('# View all configurations'));
     console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config list`));
-
   });
 
 program.parse(process.argv);

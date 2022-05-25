@@ -26,8 +26,8 @@ const loading = ora();
  * @return {*}
  */
 export async function initPromps(options: IOptions): Promise<IOptions> {
-  const configData = await getGitConfig(PRO_CONFIG_URL)
-  await memory.set('configData', configData)
+  const configData = await getGitConfig(PRO_CONFIG_URL);
+  await memory.set('configData', configData);
   const {
     supports: { type: supportType, frame: supportFrame },
   } = configData;

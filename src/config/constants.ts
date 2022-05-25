@@ -55,10 +55,10 @@ export const GITLAB_URL = `http://${GITLAB_ADDR}/api/v4`;
 export const GITLAB_TOKEN = '';
 
 /** 项目远程配置url */
-export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json'
+export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json';
 
 /** npm镜像地址 */
 export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
 
 /** 团队log名称 */
-export const TEAM_LOGO = 'EMT-FE'
+export const TEAM_LOGO = 'EMT-FE';
