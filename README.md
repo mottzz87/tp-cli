@@ -13,7 +13,7 @@
 
 前端通用脚手架, 致力于提升前端研发效率和规范的工程化解决方案
 
-随着业务项目越来越多，单纯的官方cli已经不足以满足定制的需要，我们需要一个囊括了已有项目公共组件、开箱即用的工程化项目模板，因此有了这个脚手架
+随着业务项目越来越多，单纯的官方 cli 已经不足以满足定制的需要，我们需要一个囊括了已有项目公共组件、开箱即用的工程化项目模板，因此有了这个脚手架
 
 通过该脚手架，你将拥有一支强大的基础项目模板军队，伴你在业务的战场中冲锋陷阵。
 
@@ -46,7 +46,7 @@ vane --version
 
 ```bash
 # 设置镜像源
-## 淘宝镜像 
+## 淘宝镜像
 ## npm config set registry https://registry.npm.taobao.org/
 # 目前发布在npm官方仓库
 npm config set registry https://registry.npmjs.org
@@ -61,7 +61,9 @@ npm run pub
 此脚本已支持本地调试
 
 # 项目流程
-✨✨✨[我是流程图](https://gitee.com/vaned/static/raw/master/img/cli/flowchart.png)
+
+✨✨✨[我是流程图](https://raw.githubusercontent.com/hudiegu/cdn/master/2022-05-25/10:46-4f8vB5.jpg)
+
 # 项目结构
 
 ```bash
