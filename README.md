@@ -63,6 +63,8 @@ npm run pub
 # 项目流程
 
 ✨✨✨[我是流程图](https://raw.githubusercontent.com/hudiegu/cdn/master/2022-05-25/10:46-4f8vB5.jpg)
+![](https://raw.githubusercontent.com/hudiegu/cdn/master/2022-05-25/10:46-4f8vB5.jpg)
+
 
 # 项目结构
 
