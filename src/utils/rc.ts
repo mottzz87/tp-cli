@@ -91,7 +91,7 @@ const Rc = {
     if (exit) {
       opts = await readFile(RC, 'utf8');
       opts = decode(opts);
-      if (!Object.keys(opts).includes(key)) {
+      if (!opts || !Object.keys(opts).includes(key)) {
         loading.fail(chalk.red(`删除的key不存在 [耗时${Date.now() - startTime}ms]\n`));
       } else {
         delete opts[key];
@@ -107,7 +107,9 @@ const Rc = {
    * @return {*}
    */
   clear: async (): Promise<void> => {
+    const startTime = Date.now();
     await writeFile(RC, '', 'utf8');
+    loading.succeed(chalk.green(`清空配置数据成功 [耗时${Date.now() - startTime}ms]\n`));
   },
 };
 

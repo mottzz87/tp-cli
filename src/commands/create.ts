@@ -19,8 +19,8 @@ export default async (options: IOptions): Promise<void> => {
   // 目录已存在交互
   await validateProjectNamePromps(answers);
 
-  //检测仓库服务器
-  await pingIp();
+  // //检测仓库服务器
+  // await pingIp();
 
   //模板下载
   await downloadTemplate(answers);
