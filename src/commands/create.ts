@@ -9,7 +9,7 @@
 
 import { initPromps, validateProjectNamePromps, gitPromps } from '../utils/promps';
 
-import { IOptions, downloadTemplate, writePackage, initGit, finishedTips, pingIp } from '../utils/common';
+import { IOptions, downloadTemplate, writePackage, initGit, finishedTips } from '../utils/common';
 
 export default async (options: IOptions): Promise<void> => {
   //初始化交互
