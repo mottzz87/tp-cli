@@ -55,6 +55,7 @@ npm login
 
 npm run pub
 ```
+**此脚本采取 `standard-version` 版本自增方式，发布之后及时 `git push` 本地代码。**
 
 # 调试
 
