@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/mottzz87/tp-cli/compare/v1.7.3...v1.8.0) (2023-05-18)
+
+
+### Features
+
+* 去掉版本自增 ([0f86848](https://github.com/mottzz87/tp-cli/commit/0f868483445113b30fa46c6c7249c93dbb03fd92))
+
 ### [1.7.3](https://github.com/mottzz87/tp-cli/compare/v1.7.2...v1.7.3) (2023-05-17)
 
 ### [1.7.2](https://github.com/mottzz87/tp-cli/compare/v1.7.1...v1.7.2) (2023-05-17)
