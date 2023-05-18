@@ -7,7 +7,7 @@
  * @FilePath: \tp-cli\README.md
 -->
 
-# tp-cli（因名称易冲突，已更名为 vane-cli）
+# tp-cli（已更名为 vane-cli）
 
 # 介绍
 
