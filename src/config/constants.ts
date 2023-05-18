@@ -7,7 +7,9 @@
  * @FilePath: \tp-cli\src\config\constants.ts
  */
 
-import { version, name } from '../../package.json';
+import { version, bin } from '../../package.json';
+
+const [alias = 'vane'] = Object.keys(bin);
 
 /** 用户根目录 */
 export const HOME = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
@@ -19,10 +21,13 @@ export const COMMAND_CREATE = 'create';
 export const COMMAND_CONFIG = 'config';
 
 /** 命令-执行别名 */
-export const COMMAND_ALIAS = name;
+export const COMMAND_ALIAS = alias;
+
+/** git仓库标识名 */
+export const GIT_LIB_NAME = 'gitlab';
 
 /** 脚手架系统目录 */
-export const DIR = '.tpcli';
+export const DIR = `.${alias}cli`;
 
 /** 脚手架日志目录 */
 export const DIR_LOG = 'logs';
@@ -34,16 +39,16 @@ export const VERSION = version;
 export const RC = `${HOME}/${DIR}rc`;
 
 /** gitlab url */
-export const KEY_GITLAB_URL = 'gitlab_url';
+export const KEY_GITLAB_URL = GIT_LIB_NAME + '_url';
 
 /** gitlab token */
-export const KEY_GITLAB_TOKEN = 'gitlab_token';
+export const KEY_GITLAB_TOKEN = GIT_LIB_NAME + '_token';
 
 /** gitlab username */
-export const KEY_GITLAB_USERNAME = 'gitlab_username';
+export const KEY_GITLAB_USERNAME = GIT_LIB_NAME + '_username';
 
 /** gitlab password */
-export const KEY_GITLAB_PASSWORD = 'gitlab_password';
+export const KEY_GITLAB_PASSWORD = GIT_LIB_NAME + '_password';
 
 /** gitlab 二级域名 */
 export const GITLAB_ADDR = 'git.mobimedical.cn';
@@ -58,7 +63,9 @@ export const GITLAB_TOKEN = '';
 export const PRO_CONFIG_URL = 'https://gitee.com/vaned/static/raw/master/js/config.json';
 
 /** npm镜像地址 */
-export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
+// 如上传至npm源，此处最好设置npm，淘宝镜像并不一定能及时同步到最新的版本信息
+export const NPM_PACKAGE = 'https://registry.npmjs.org/';
+// export const NPM_PACKAGE = 'https://registry.npm.taobao.org/';
 
 /** 团队log名称 */
 export const TEAM_LOGO = 'EMT-FE';

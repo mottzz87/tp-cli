@@ -10,7 +10,7 @@ import { program } from 'commander';
 import chalk from 'chalk';
 import { version, description } from '../package.json';
 import Rc from './utils/rc';
-import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO } from './config/constants';
+import { GITLAB_URL, COMMAND_ALIAS, TEAM_LOGO, KEY_GITLAB_URL } from './config/constants';
 import { upgrade } from './utils/upgrade';
 import { printTeam, handleNoAuth, IOptions } from './utils/common';
 import { create } from './commands';
@@ -52,11 +52,11 @@ program
       console.log(chalk.redBright('🙄 Command input error, please refer to the following example command'));
       console.log('\nExamples:');
       console.log(chalk.gray('# Set configuration data'));
-      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set gitlab_url ${GITLAB_URL}`));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set ${KEY_GITLAB_URL} ${GITLAB_URL}`));
       console.log(chalk.gray('# Read the specified configuration data'));
-      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get gitlab_url`));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get ${KEY_GITLAB_URL}`));
       console.log(chalk.gray('# Remove specified configuration data'));
-      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
+      console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove ${KEY_GITLAB_URL}`));
       console.log(chalk.gray('# View all configurations'));
       console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get`));
     } else {
@@ -66,11 +66,11 @@ program
   .on('--help', function () {
     console.log('\nExamples:');
     console.log(chalk.gray('# Set configuration data'));
-    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set gitlab_url ${GITLAB_URL}`));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config set ${KEY_GITLAB_URL} ${GITLAB_URL}`));
     console.log(chalk.gray('# Read the specified configuration data'));
-    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get gitlab_url`));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config get ${KEY_GITLAB_URL}`));
     console.log(chalk.gray('# Remove specified configuration data'));
-    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove gitlab_url`));
+    console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config remove ${KEY_GITLAB_URL}`));
     console.log(chalk.gray('# View all configurations'));
     console.log(chalk.yellow(`$ ${COMMAND_ALIAS} config list`));
   });
